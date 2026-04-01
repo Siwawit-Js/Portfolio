@@ -9,7 +9,7 @@ import { getSkills, createSkill, updateSkill, deleteSkill } from '../services/sk
 import type { Skill, SkillFormData } from '../types';
 
 const emptyForm: SkillFormData = { name: '', category: 'Frontend', icon: '', proficiency: 80, sort_order: 0 };
-const categories = ['Frontend', 'Backend', 'DevOps', 'Design', 'Mobile', 'Other'];
+const categories = ['Frontend', 'Backend', 'DevOps', 'Tool', 'Framework', 'Design', 'Mobile', 'Other', 'Softskill'];
 
 export function SkillsManager() {
   const [skills, setSkills] = useState<Skill[]>([]);

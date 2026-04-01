@@ -1,3 +1,8 @@
+export interface StatItem {
+  label: string;
+  value: string;
+}
+
 export interface Profile {
   id: string;
   name: string;
@@ -9,6 +14,8 @@ export interface Profile {
   email: string | null;
   github: string | null;
   linkedin: string | null;
+  facebook: string | null;
+  stats: StatItem[] | null;
   updated_at: string;
 }
 
@@ -17,6 +24,7 @@ export interface Project {
   title: string;
   description: string | null;
   image_url: string | null;
+  images: string[];
   tech_stack: string[];
   live_url: string | null;
   github_url: string | null;
@@ -49,4 +57,4 @@ export interface Experience {
 export type ProjectFormData = Omit<Project, 'id' | 'created_at'>;
 export type SkillFormData = Omit<Skill, 'id'>;
 export type ExperienceFormData = Omit<Experience, 'id'>;
-export type ProfileFormData = Omit<Profile, 'id' | 'updated_at'>;
+export type ProfileFormData = Omit<Profile, 'id' | 'updated_at' | 'stats'>;

@@ -15,11 +15,13 @@ export function ContactSection() {
     getProfile().then(setProfile);
   }, []);
 
+  const toUrl = (url: string) => url.startsWith('http') ? url : `https://${url}`;
+
   const contactLinks = [
-    { icon: Mail, label: 'Email', value: profile?.email ?? undefined, href: profile?.email ? `mailto:${profile.email}` : undefined },
-    { icon: Github, label: 'GitHub', value: 'GitHub Profile', href: profile?.github ?? undefined },
-    { icon: Linkedin, label: 'LinkedIn', value: 'LinkedIn Profile', href: profile?.linkedin ?? undefined },
-  ].filter((l) => l.href);
+    { icon: Mail, label: 'Email', value: profile?.email ?? undefined, href: undefined },
+    { icon: Github, label: 'GitHub', value: 'GitHub Profile', href: profile?.github ? toUrl(profile.github) : undefined },
+    { icon: Linkedin, label: 'LinkedIn', value: 'LinkedIn Profile', href: profile?.linkedin ? toUrl(profile.linkedin) : undefined },
+  ].filter((l) => l.value);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -61,9 +63,6 @@ export function ContactSection() {
             Let's Work{' '}
             <span className="bg-gradient-to-r from-primary-500 to-accent-400 bg-clip-text text-transparent">Together</span>
           </h2>
-          <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            I'm always open to new opportunities and interesting projects. Let's connect and bring your ideas to life.
-          </p>
         </motion.div>
 
         {/* Contact card */}
@@ -89,33 +88,32 @@ export function ContactSection() {
                   Feel free to reach out through any of my social links or send me a message directly.
                 </p>
 
-                <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
-                  <MapPin className="w-4 h-4 text-primary-500" />
-                  <span>Available Worldwide · Remote</span>
-                </div>
+
 
                 <div className="space-y-3">
-                  {contactLinks.map((link, i) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target={link.label !== 'Email' ? '_blank' : undefined}
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: i * 0.1 }}
-                      className="flex items-center gap-4 p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 hover:border-primary-500/30 hover:bg-primary-500/5 transition-all duration-300 group"
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
-                        <link.icon className="w-5 h-5 text-primary-500" />
-                      </div>
-                      <div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">{link.label}</div>
-                        <div className="text-sm font-medium text-slate-900 dark:text-white">{link.value}</div>
-                      </div>
-                    </motion.a>
-                  ))}
+                  {contactLinks.map((link, i) => {
+                    const inner = (
+                      <>
+                        <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
+                          <link.icon className="w-5 h-5 text-primary-500" />
+                        </div>
+                        <div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">{link.label}</div>
+                          <div className="text-sm font-medium text-slate-900 dark:text-white">{link.value}</div>
+                        </div>
+                      </>
+                    );
+                    const className = "flex items-center gap-4 p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 transition-all duration-300 group" + (link.href ? " hover:border-primary-500/30 hover:bg-primary-500/5 cursor-pointer" : " cursor-default");
+                    return link.href ? (
+                      <motion.a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: i * 0.1 }} className={className}>
+                        {inner}
+                      </motion.a>
+                    ) : (
+                      <motion.div key={link.label} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: i * 0.1 }} className={className}>
+                        {inner}
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </div>
 

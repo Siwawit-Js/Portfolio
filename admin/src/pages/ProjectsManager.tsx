@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Plus, Pencil, Trash2, ExternalLink, Github, Star } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Plus, Pencil, Trash2, ExternalLink, Github, Star, Upload, X } from 'lucide-react';
+import { uploadImage } from '../services/storage';
 import toast from 'react-hot-toast';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -9,7 +10,7 @@ import { getProjects, createProject, updateProject, deleteProject } from '../ser
 import type { Project, ProjectFormData } from '../types';
 
 const emptyForm: ProjectFormData = {
-  title: '', description: '', image_url: '', tech_stack: [],
+  title: '', description: '', image_url: '', images: [], tech_stack: [],
   live_url: '', github_url: '', featured: false, sort_order: 0,
 };
 
@@ -20,7 +21,31 @@ export function ProjectsManager() {
   const [editing, setEditing] = useState<Project | null>(null);
   const [form, setForm] = useState<ProjectFormData>(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [techInput, setTechInput] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUpload = async (files: FileList | File[]) => {
+    const arr = Array.from(files);
+    const valid = arr.filter(f => f.type.startsWith('image/') && f.size <= 5 * 1024 * 1024);
+    if (valid.length < arr.length) toast.error('Some files skipped (not image or >5MB)');
+    if (!valid.length) return;
+    setUploading(true);
+    try {
+      const urls = await Promise.all(valid.map(f => uploadImage(f, 'projects')));
+      setForm(f => ({ ...f, images: [...(f.images ?? []), ...urls] }));
+      toast.success(`${urls.length} image(s) uploaded`);
+    } catch (err: any) {
+      toast.error(err.message || 'Upload failed');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setForm(f => ({ ...f, images: (f.images ?? []).filter((_, i) => i !== index) }));
+  };
 
   const load = () => {
     setLoading(true);
@@ -29,36 +54,30 @@ export function ProjectsManager() {
   useEffect(load, []);
 
   const openCreate = () => { setEditing(null); setForm(emptyForm); setTechInput(''); setModalOpen(true); };
-  const openEdit = (p: Project) => { setEditing(p); setForm({ title: p.title, description: p.description || '', image_url: p.image_url || '', tech_stack: p.tech_stack, live_url: p.live_url || '', github_url: p.github_url || '', featured: p.featured, sort_order: p.sort_order }); setTechInput(p.tech_stack.join(', ')); setModalOpen(true); };
+  const openEdit = (p: Project) => {
+    setEditing(p);
+    setForm({ title: p.title, description: p.description || '', image_url: p.image_url || '', images: p.images ?? [], tech_stack: p.tech_stack, live_url: p.live_url || '', github_url: p.github_url || '', featured: p.featured, sort_order: p.sort_order });
+    setTechInput(p.tech_stack.join(', '));
+    setModalOpen(true);
+  };
 
   const handleSave = async () => {
     if (!form.title.trim()) { toast.error('Title is required'); return; }
     setSaving(true);
     try {
       const data = { ...form, tech_stack: techInput.split(',').map(s => s.trim()).filter(Boolean) };
-      if (editing) {
-        await updateProject(editing.id, data);
-        toast.success('Project updated');
-      } else {
-        await createProject(data);
-        toast.success('Project created');
-      }
+      if (editing) { await updateProject(editing.id, data); toast.success('Project updated'); }
+      else { await createProject(data); toast.success('Project created'); }
       setModalOpen(false);
       load();
-    } catch (err: any) {
-      toast.error(err.message || 'Save failed');
-    } finally {
-      setSaving(false);
-    }
+    } catch (err: any) { toast.error(err.message || 'Save failed'); }
+    finally { setSaving(false); }
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this project?')) return;
-    try {
-      await deleteProject(id);
-      toast.success('Project deleted');
-      load();
-    } catch { toast.error('Delete failed'); }
+    try { await deleteProject(id); toast.success('Project deleted'); load(); }
+    catch { toast.error('Delete failed'); }
   };
 
   return (
@@ -71,7 +90,6 @@ export function ProjectsManager() {
         <Button onClick={openCreate}><Plus className="w-4 h-4" /> Add Project</Button>
       </div>
 
-      {/* Projects list */}
       <div className="grid gap-4">
         {loading ? (
           Array.from({ length: 3 }).map((_, i) => <div key={i} className="animate-pulse h-24 rounded-2xl bg-slate-200 dark:bg-white/5" />)
@@ -87,6 +105,7 @@ export function ProjectsManager() {
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-semibold text-slate-900 dark:text-white truncate">{p.title}</h3>
                     {p.featured && <Star className="w-4 h-4 text-amber-500 fill-amber-500 flex-shrink-0" />}
+                    {p.images?.length > 0 && <span className="text-xs text-slate-400">{p.images.length} รูป</span>}
                   </div>
                   <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1 mb-2">{p.description}</p>
                   <div className="flex flex-wrap gap-1.5">
@@ -109,12 +128,49 @@ export function ProjectsManager() {
         )}
       </div>
 
-      {/* Modal */}
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={editing ? 'Edit Project' : 'New Project'} size="lg">
         <div className="space-y-4">
           <Input label="Title *" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="Project name" />
           <Textarea label="Description" value={form.description || ''} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="Brief description..." />
-          <Input label="Image URL" value={form.image_url || ''} onChange={e => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
+
+          {/* Multi-image upload */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+              Images {form.images?.length > 0 && <span className="text-primary-500">({form.images.length})</span>}
+            </label>
+
+            {/* Thumbnails */}
+            {form.images?.length > 0 && (
+              <div className="flex gap-2 flex-wrap">
+                {form.images.map((url, i) => (
+                  <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 flex-shrink-0">
+                    <img src={url} alt="" className="w-full h-full object-cover" />
+                    <button onClick={() => removeImage(i)} className="absolute top-1 right-1 w-5 h-5 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors">
+                      <X className="w-3 h-3" />
+                    </button>
+                    {i === 0 && <span className="absolute bottom-0 left-0 right-0 text-center text-[9px] bg-primary-500 text-white py-0.5">Cover</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Drop zone */}
+            <div
+              onDragOver={e => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={e => { e.preventDefault(); setIsDragging(false); handleUpload(e.dataTransfer.files); }}
+              onClick={() => fileInputRef.current?.click()}
+              className={`h-28 rounded-xl border-2 border-dashed cursor-pointer flex flex-col items-center justify-center gap-2 transition-colors
+                ${isDragging ? 'border-primary-500 bg-primary-500/10' : 'border-slate-300 dark:border-white/15 hover:border-primary-400 hover:bg-primary-500/5'}
+                ${uploading ? 'pointer-events-none opacity-60' : ''}`}
+            >
+              <Upload className={`w-5 h-5 ${isDragging ? 'text-primary-500' : 'text-slate-400'}`} />
+              <p className="text-sm text-slate-500 dark:text-slate-400">{uploading ? 'Uploading...' : 'Drop images here or click to browse'}</p>
+              <p className="text-xs text-slate-400">รองรับหลายไฟล์ · PNG, JPG, WEBP · max 5MB</p>
+            </div>
+            <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={e => { if (e.target.files) handleUpload(e.target.files); e.target.value = ''; }} />
+          </div>
+
           <Input label="Tech Stack (comma-separated)" value={techInput} onChange={e => setTechInput(e.target.value)} placeholder="React, TypeScript, Node.js" />
           <div className="grid grid-cols-2 gap-4">
             <Input label="Live URL" value={form.live_url || ''} onChange={e => setForm({ ...form, live_url: e.target.value })} placeholder="https://..." />

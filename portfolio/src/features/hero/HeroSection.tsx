@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Github, Linkedin } from 'lucide-react';
 import { getProfile } from '../../services/profile';
 import type { Profile } from '../../types';
 
@@ -11,7 +11,8 @@ export function HeroSection() {
     getProfile().then(setProfile);
   }, []);
 
-  const roles = profile?.role?.split(',').map((r) => r.trim()) || ['Full Stack Developer'];
+  const roles = profile?.role?.split(',').map((r) => r.trim()) || [];
+  const toUrl = (url: string) => /^https?:\/\//.test(url) ? url : `https://${url}`;
   const [currentRole, setCurrentRole] = useState(0);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export function HeroSection() {
         >
           <span className="text-slate-900 dark:text-white">Hi, I'm </span>
           <span className="bg-gradient-to-r from-primary-500 via-primary-400 to-accent-400 bg-clip-text text-transparent">
-            {profile?.name || 'Alex Johnson'}
+            {profile?.name}
           </span>
         </motion.h1>
 
@@ -86,7 +87,7 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          {profile?.bio || 'Crafting digital experiences with clean code and thoughtful design.'}
+          {profile?.bio}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -118,18 +119,20 @@ export function HeroSection() {
           className="flex items-center justify-center gap-3"
         >
           {profile?.github && (
-            <a href={profile.github} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
+            <a href={toUrl(profile.github)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
               <Github className="w-5 h-5" />
             </a>
           )}
           {profile?.linkedin && (
-            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
+            <a href={toUrl(profile.linkedin)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
               <Linkedin className="w-5 h-5" />
             </a>
           )}
-          {profile?.email && (
-            <a href={`mailto:${profile.email}`} className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
-              <Mail className="w-5 h-5" />
+          {profile?.facebook && (
+            <a href={toUrl(profile.facebook)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
             </a>
           )}
         </motion.div>

@@ -15,8 +15,12 @@ CREATE TABLE profile (
   email TEXT DEFAULT 'hello@example.com',
   github TEXT DEFAULT 'https://github.com/yourusername',
   linkedin TEXT DEFAULT 'https://linkedin.com/in/yourusername',
+  stats JSONB DEFAULT '[{"label":"Projects","value":"50+"},{"label":"Cups of Coffee","value":"1000+"},{"label":"Years Exp","value":"5+"},{"label":"Happy Clients","value":"30+"}]',
   updated_at TIMESTAMPTZ DEFAULT now()
 );
+
+-- Migration: Add stats column to existing profile table
+-- ALTER TABLE profile ADD COLUMN IF NOT EXISTS stats JSONB DEFAULT '[{"label":"Projects","value":"50+"},{"label":"Cups of Coffee","value":"1000+"},{"label":"Years Exp","value":"5+"},{"label":"Happy Clients","value":"30+"}]';
 
 -- Insert a default profile row
 INSERT INTO profile (name, role, bio, about, email)
