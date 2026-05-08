@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Tv2, Music2, Gamepad2, Coffee } from 'lucide-react';
+import { User, Tv2, Music2, Gamepad2, Coffee, Star } from 'lucide-react';
 import { getProfile } from '../../services/profile';
 import type { Profile } from '../../types';
 
@@ -29,10 +29,13 @@ export function AboutSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-sm font-semibold text-primary-500 tracking-wider uppercase mb-3">About Me</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cosmos-400/30 bg-cosmos-500/10 text-cosmos-400 text-xs font-semibold tracking-wider uppercase mb-4">
+            <Star className="w-3.5 h-3.5" />
+            About Me
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
             Crafting Digital{' '}
-            <span className="bg-gradient-to-r from-primary-500 to-accent-400 bg-clip-text text-transparent">Experiences</span>
+            <span className="gradient-text-galaxy">Galaxies</span>
           </h2>
         </motion.div>
 
@@ -46,21 +49,21 @@ export function AboutSection() {
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden aspect-square max-w-md mx-auto lg:mx-0">
-              {/* Gradient border effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 via-accent-400 to-primary-500 rounded-2xl blur opacity-30 animate-gradient bg-300%" />
-              <div className="relative rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-800">
+              {/* Glowing nebula border */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 via-nebula-500 to-cosmos-500 rounded-2xl blur-md opacity-60 animate-gradient bg-300%" />
+              <div className="relative rounded-2xl overflow-hidden bg-space-900 border border-white/10">
                 {profile?.avatar_url ? (
                   <img src={profile.avatar_url} alt={profile.name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-500/20 to-accent-400/20">
-                    <User className="w-32 h-32 text-primary-500/40" />
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-500/20 via-nebula-500/15 to-cosmos-500/20 stars-bg-color">
+                    <User className="w-32 h-32 text-nebula-300/50" />
                   </div>
                 )}
               </div>
             </div>
-            {/* Floating decoration */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary-500/10 rounded-2xl border border-primary-500/20 backdrop-blur-md -z-10 hidden lg:block" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent-400/10 rounded-2xl border border-accent-400/20 backdrop-blur-md -z-10 hidden lg:block" />
+            {/* Floating decorations */}
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-nebula-500/10 rounded-2xl border border-nebula-400/20 backdrop-blur-md -z-10 hidden lg:block animate-float" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-cosmos-500/10 rounded-2xl border border-cosmos-400/20 backdrop-blur-md -z-10 hidden lg:block animate-float-delayed" />
           </motion.div>
 
           {/* Text content */}
@@ -70,7 +73,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div className="space-y-4 text-slate-300 leading-relaxed">
               {profile?.about?.split('\n').filter(Boolean).map((paragraph, i) => (
                 <p key={i} className="text-base sm:text-lg">{paragraph}</p>
               ))}
@@ -85,10 +88,11 @@ export function AboutSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="text-center p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-sm"
+                  className="text-center p-4 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md hover:border-nebula-400/30 hover:bg-white/[0.06] transition-all"
                 >
-                  <hobby.icon className="w-5 h-5 text-primary-500 mx-auto mb-2" />
-                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{hobby.label}</div>
+                  <hobby.icon className="w-5 h-5 text-nebula-300 mx-auto mb-2" />
+                  <div className="text-xs text-slate-300 font-medium">{hobby.value}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">{hobby.label}</div>
                 </motion.div>
               ))}
             </div>

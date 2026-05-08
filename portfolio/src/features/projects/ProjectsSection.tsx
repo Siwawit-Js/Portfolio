@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Star, FolderOpen, ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
+import { ExternalLink, Github, Star, FolderOpen, ChevronLeft, ChevronRight, X, ZoomIn, Rocket } from 'lucide-react';
 import { getProjects } from '../../services/projects';
 import type { Project } from '../../types';
 import { CardSkeleton } from '../../components/ui/Skeleton';
@@ -28,7 +28,7 @@ function LightboxModal({ images, initialIndex, onClose }: { images: string[]; in
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 bg-space-950/95 backdrop-blur-md flex items-center justify-center p-4"
       >
         {/* Close */}
         <button onClick={onClose} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors">
@@ -91,8 +91,8 @@ function ImageCarousel({ images, title, onClickImage }: { images: string[]; titl
   const [current, setCurrent] = useState(0);
 
   if (images.length === 0) return (
-    <div className="w-full h-full flex items-center justify-center">
-      <FolderOpen className="w-16 h-16 text-primary-500/30" />
+    <div className="w-full h-full flex items-center justify-center stars-bg-color">
+      <FolderOpen className="w-16 h-16 text-nebula-400/40" />
     </div>
   );
 
@@ -162,13 +162,16 @@ export function ProjectsSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-sm font-semibold text-primary-500 tracking-wider uppercase mb-3">My Work</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-400/30 bg-primary-500/10 text-primary-300 text-xs font-semibold tracking-wider uppercase mb-4">
+            <Rocket className="w-3.5 h-3.5" />
+            My Work
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
             Featured{' '}
-            <span className="bg-gradient-to-r from-primary-500 to-accent-400 bg-clip-text text-transparent">Projects</span>
+            <span className="gradient-text-galaxy">Missions</span>
           </h2>
-          <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            A selection of projects that showcase my skills and passion for building great software.
+          <p className="mt-4 text-slate-400 max-w-2xl mx-auto">
+            A selection of projects launched into orbit — showcasing my skills and passion for building great software.
           </p>
         </motion.div>
 
@@ -184,24 +187,24 @@ export function ProjectsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="group relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-md overflow-hidden hover:border-primary-500/30 hover:shadow-xl hover:shadow-primary-500/5 transition-all duration-500 hover:-translate-y-1"
+                    className="group relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md overflow-hidden hover:border-nebula-400/40 hover:shadow-glow-nebula transition-all duration-500 hover:-translate-y-1"
                   >
-                    <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary-500/10 to-accent-400/10">
+                    <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary-500/15 via-nebula-500/10 to-cosmos-500/15">
                       <ImageCarousel
                         images={images}
                         title={project.title}
                         onClickImage={index => images.length > 0 && setLightbox({ images, index })}
                       />
 
-                      <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 pointer-events-none">
+                      <div className="absolute inset-0 z-10 bg-gradient-to-t from-space-950/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 pointer-events-none">
                         <div className="flex gap-3 pointer-events-auto">
                           {project.live_url && (
-                            <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-md text-white text-sm font-medium hover:bg-white/30 transition-colors flex items-center gap-1.5">
+                            <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-white/15 backdrop-blur-md text-white text-sm font-medium hover:bg-white/25 transition-colors flex items-center gap-1.5">
                               <ExternalLink className="w-4 h-4" /> Live Demo
                             </a>
                           )}
                           {project.github_url && (
-                            <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-md text-white text-sm font-medium hover:bg-white/30 transition-colors flex items-center gap-1.5">
+                            <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-white/15 backdrop-blur-md text-white text-sm font-medium hover:bg-white/25 transition-colors flex items-center gap-1.5">
                               <Github className="w-4 h-4" /> Code
                             </a>
                           )}
@@ -209,22 +212,22 @@ export function ProjectsSection() {
                       </div>
 
                       {project.featured && (
-                        <div className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/90 text-white text-xs font-medium backdrop-blur-sm">
+                        <div className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 text-xs font-bold backdrop-blur-sm shadow-lg">
                           <Star className="w-3 h-3 fill-current" /> Featured
                         </div>
                       )}
                     </div>
 
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-500 transition-colors">
+                      <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-nebula-300 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2 leading-relaxed">
+                      <p className="text-sm text-slate-400 mb-4 line-clamp-2 leading-relaxed">
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {project.tech_stack.map((tech) => (
-                          <span key={tech} className="px-3 py-1 text-xs font-medium rounded-full border border-primary-500/20 text-primary-500 bg-primary-500/5">
+                          <span key={tech} className="px-3 py-1 text-xs font-medium rounded-full border border-nebula-400/20 text-nebula-300 bg-nebula-500/5">
                             {tech}
                           </span>
                         ))}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Sparkles } from 'lucide-react';
 import { getProfile } from '../../services/profile';
 import type { Profile } from '../../types';
 
@@ -16,6 +16,7 @@ export function HeroSection() {
   const [currentRole, setCurrentRole] = useState(0);
 
   useEffect(() => {
+    if (roles.length === 0) return;
     const interval = setInterval(() => {
       setCurrentRole((prev) => (prev + 1) % roles.length);
     }, 3000);
@@ -24,20 +25,10 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary-500/20 rounded-full blur-[100px] animate-float" />
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent-400/15 rounded-full blur-[120px] animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-600/5 rounded-full blur-[150px] animate-pulse-slow" />
-      </div>
-
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+      {/* Orbital rings (decorative) */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-white/5 opacity-60 hidden md:block" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-white/5 opacity-50 animate-spin-slow hidden md:block" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-nebula-500/10 opacity-50 hidden md:block" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Status badge */}
@@ -45,13 +36,13 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 text-sm font-medium mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-aurora-500/30 bg-aurora-500/10 text-aurora-400 text-sm font-medium mb-8 backdrop-blur-md"
         >
           <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-aurora-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-aurora-500" />
           </span>
-          Available for work
+          Available for work — exploring the universe
         </motion.div>
 
         {/* Name */}
@@ -59,12 +50,10 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4"
+          className="text-4xl sm:text-5xl md:text-7xl font-display font-bold tracking-tight mb-4"
         >
-          <span className="text-slate-900 dark:text-white">Hi, I'm </span>
-          <span className="bg-gradient-to-r from-primary-500 via-primary-400 to-accent-400 bg-clip-text text-transparent">
-            {profile?.name}
-          </span>
+          <span className="text-white">Hi, I&apos;m </span>
+          <span className="gradient-text-galaxy">{profile?.name}</span>
         </motion.h1>
 
         {/* Role with typewriter effect */}
@@ -74,9 +63,9 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="h-12 flex items-center justify-center mb-6"
         >
-          <span className="text-xl sm:text-2xl md:text-3xl font-medium text-slate-500 dark:text-slate-400">
+          <span className="text-xl sm:text-2xl md:text-3xl font-medium text-slate-300">
             {roles[currentRole]}
-            <span className="animate-pulse ml-0.5 text-primary-500">|</span>
+            <span className="animate-pulse ml-0.5 text-nebula-400">|</span>
           </span>
         </motion.div>
 
@@ -85,7 +74,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           {profile?.bio}
         </motion.p>
@@ -99,13 +88,16 @@ export function HeroSection() {
         >
           <button
             onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-primary-600 to-primary-500 text-white font-medium shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 transition-all duration-300 hover:-translate-y-0.5"
+            className="group relative px-8 py-3.5 rounded-xl bg-gradient-to-r from-primary-500 via-nebula-500 to-cosmos-500 text-white font-medium shadow-glow-nebula hover:shadow-glow-cosmos transition-all duration-500 hover:-translate-y-0.5 bg-[length:200%_100%] hover:bg-[position:100%_0]"
           >
-            View My Work
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              Explore My Work
+            </span>
           </button>
           <button
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3.5 rounded-xl border border-slate-300 dark:border-white/20 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-white/5 hover:border-slate-400 dark:hover:border-white/40 transition-all duration-300"
+            className="px-8 py-3.5 rounded-xl border border-white/15 bg-white/[0.03] backdrop-blur-md text-slate-200 font-medium hover:bg-white/[0.08] hover:border-nebula-400/40 transition-all duration-300"
           >
             Get In Touch
           </button>
@@ -119,19 +111,19 @@ export function HeroSection() {
           className="flex items-center justify-center gap-3"
         >
           {profile?.github && (
-            <a href={toUrl(profile.github)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
+            <a href={toUrl(profile.github)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md text-slate-400 hover:text-white hover:border-nebula-400/40 hover:bg-white/[0.06] transition-all duration-300">
               <Github className="w-5 h-5" />
             </a>
           )}
           {profile?.linkedin && (
-            <a href={toUrl(profile.linkedin)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
+            <a href={toUrl(profile.linkedin)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md text-slate-400 hover:text-white hover:border-nebula-400/40 hover:bg-white/[0.06] transition-all duration-300">
               <Linkedin className="w-5 h-5" />
             </a>
           )}
           {profile?.facebook && (
-            <a href={toUrl(profile.facebook)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-primary-500/30 transition-all duration-300">
+            <a href={toUrl(profile.facebook)} target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md text-slate-400 hover:text-white hover:border-nebula-400/40 hover:bg-white/[0.06] transition-all duration-300">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
             </a>
           )}
@@ -147,7 +139,7 @@ export function HeroSection() {
       >
         <button
           onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
-          className="flex flex-col items-center gap-2 text-slate-400 hover:text-primary-500 transition-colors"
+          className="flex flex-col items-center gap-2 text-slate-500 hover:text-nebula-300 transition-colors"
         >
           <span className="text-xs font-medium tracking-wider uppercase">Scroll</span>
           <ArrowDown className="w-4 h-4 animate-bounce" />

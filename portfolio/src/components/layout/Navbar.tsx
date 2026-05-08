@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { ThemeToggle } from '../ui/ThemeToggle';
 
 interface NavbarProps {
@@ -35,7 +35,7 @@ export function Navbar({ isDark, toggleTheme }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 shadow-lg shadow-black/5'
+          ? 'bg-space-950/70 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/30'
           : 'bg-transparent'
       }`}
     >
@@ -44,9 +44,14 @@ export function Navbar({ isDark, toggleTheme }: NavbarProps) {
           {/* Logo */}
           <a
             href="#"
-            className="text-xl font-bold bg-gradient-to-r from-primary-500 to-accent-400 bg-clip-text text-transparent"
+            className="flex items-center gap-2 group"
           >
-            Portfolio
+            <span className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 via-nebula-500 to-cosmos-500 flex items-center justify-center shadow-glow-space group-hover:shadow-glow-nebula transition-shadow">
+              <Sparkles className="w-4 h-4 text-white" />
+            </span>
+            <span className="text-xl font-display font-bold gradient-text-galaxy">
+              Galaxy
+            </span>
           </a>
 
           {/* Desktop Nav */}
@@ -55,7 +60,7 @@ export function Navbar({ isDark, toggleTheme }: NavbarProps) {
               <button
                 key={link.href}
                 onClick={() => handleClick(link.href)}
-                className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-all duration-200"
+                className="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white rounded-lg hover:bg-white/[0.06] transition-all duration-200"
               >
                 {link.label}
               </button>
@@ -70,7 +75,7 @@ export function Navbar({ isDark, toggleTheme }: NavbarProps) {
             <ThemeToggle isDark={isDark} toggle={toggleTheme} />
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="p-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
+              className="p-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] transition-colors text-white"
             >
               {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -84,12 +89,12 @@ export function Navbar({ isDark, toggleTheme }: NavbarProps) {
           isMobileOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="px-4 pb-4 space-y-1 bg-white/80 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10">
+        <div className="px-4 pb-4 space-y-1 bg-space-950/90 backdrop-blur-xl border-b border-white/10">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => handleClick(link.href)}
-              className="block w-full text-left px-4 py-3 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+              className="block w-full text-left px-4 py-3 text-sm font-medium text-slate-400 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors"
             >
               {link.label}
             </button>

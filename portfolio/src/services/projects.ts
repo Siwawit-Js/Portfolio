@@ -1,14 +1,6 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { PROJECTS } from '../data/static';
 import type { Project } from '../types';
 
 export async function getProjects(): Promise<Project[]> {
-  if (!isSupabaseConfigured) return [];
-
-  const { data, error } = await supabase
-    .from('projects')
-    .select('*')
-    .order('sort_order', { ascending: true });
-
-  if (error) { console.error('[projects]', error); return []; }
-  return data ?? [];
+  return [...PROJECTS].sort((a, b) => a.sort_order - b.sort_order);
 }
