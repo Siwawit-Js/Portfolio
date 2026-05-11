@@ -14,68 +14,53 @@
   }
 
   body {
-    @apply text-slate-900 dark:text-slate-100 font-sans antialiased;
-    background-color: #06061d;
+    @apply font-sans antialiased;
+    /* Neutral dark — no purple tint */
+    background-color: #0a0a0a;
     color: #e5e7eb;
     background-image:
-      radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.18), transparent 55%),
-      radial-gradient(ellipse at 80% 30%, rgba(207, 46, 255, 0.15), transparent 50%),
-      radial-gradient(ellipse at 50% 90%, rgba(34, 211, 238, 0.12), transparent 55%),
-      linear-gradient(180deg, #06061d 0%, #0b0a2e 50%, #06061d 100%);
+      radial-gradient(ellipse at 20% 0%,  rgba(0, 204, 130, 0.06), transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(0, 204, 130, 0.04), transparent 45%),
+      radial-gradient(ellipse at 50% 100%, rgba(34, 211, 238, 0.04), transparent 50%);
     background-attachment: fixed;
   }
 
-  /* Light mode (kept simple, theme is mainly designed for dark) */
-  html:not(.dark) body {
-    background-color: #f5f3ff;
-    color: #0f172a;
-    background-image:
-      radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.10), transparent 55%),
-      radial-gradient(ellipse at 80% 30%, rgba(207, 46, 255, 0.08), transparent 50%),
-      linear-gradient(180deg, #ffffff 0%, #f5f3ff 100%);
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.5), rgba(207, 46, 255, 0.5));
+  ::-webkit-scrollbar        { width: 6px; }
+  ::-webkit-scrollbar-track  { background: transparent; }
+  ::-webkit-scrollbar-thumb  {
+    background: linear-gradient(180deg, rgba(0,204,130,0.5), rgba(18,233,156,0.4));
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.8), rgba(207, 46, 255, 0.8));
+    background: linear-gradient(180deg, rgba(0,204,130,0.8), rgba(18,233,156,0.7));
   }
 
   ::selection {
-    background-color: rgba(139, 92, 246, 0.35);
+    background-color: rgba(0, 204, 130, 0.30);
     color: #fff;
   }
 }
 
 @layer utilities {
-  /* Glassy panel for galaxy theme */
   .glass {
-    @apply bg-white/80 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200/50 dark:border-white/10;
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10;
   }
 
   .glass-cosmic {
-    background: rgba(15, 12, 50, 0.45);
+    background: rgba(10, 10, 10, 0.50);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(139, 92, 246, 0.18);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 204, 130, 0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
   }
 
+  /* Brand gradient text — green → teal */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-400 via-nebula-400 to-cosmos-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary-400 via-aurora-400 to-cosmos-400 bg-clip-text text-transparent;
   }
 
   .gradient-text-galaxy {
-    background: linear-gradient(110deg, #a78bfa 0%, #e35cff 35%, #22d3ee 70%, #a78bfa 100%);
+    background: linear-gradient(110deg, #12e99c 0%, #45f9b7 35%, #22d3ee 70%, #12e99c 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -90,61 +75,62 @@
     overflow: hidden;
   }
 
-  /* Starfield layers — three sizes drifting at different speeds */
+  /* Starfield */
   .stars-bg {
     background-image:
       radial-gradient(1px 1px at 20px 30px, #ffffff, transparent),
-      radial-gradient(1px 1px at 40px 70px, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.85), transparent),
       radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
-      radial-gradient(1.5px 1.5px at 130px 80px, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(1.5px 1.5px at 130px 80px, rgba(255,255,255,0.9), transparent),
       radial-gradient(1px 1px at 160px 30px, #ffffff, transparent),
-      radial-gradient(1px 1px at 200px 110px, rgba(255, 255, 255, 0.7), transparent),
+      radial-gradient(1px 1px at 200px 110px, rgba(255,255,255,0.7), transparent),
       radial-gradient(2px 2px at 240px 60px, #ffffff, transparent),
-      radial-gradient(1px 1px at 280px 100px, rgba(255, 255, 255, 0.85), transparent);
+      radial-gradient(1px 1px at 280px 100px, rgba(255,255,255,0.85), transparent);
     background-size: 320px 160px;
     background-repeat: repeat;
   }
 
   .stars-bg-far {
     background-image:
-      radial-gradient(0.5px 0.5px at 10px 20px, rgba(255, 255, 255, 0.7), transparent),
-      radial-gradient(0.5px 0.5px at 60px 80px, rgba(255, 255, 255, 0.6), transparent),
-      radial-gradient(0.5px 0.5px at 110px 40px, rgba(255, 255, 255, 0.7), transparent),
-      radial-gradient(1px 1px at 170px 120px, rgba(255, 255, 255, 0.5), transparent),
-      radial-gradient(0.5px 0.5px at 220px 60px, rgba(255, 255, 255, 0.65), transparent),
-      radial-gradient(0.5px 0.5px at 260px 30px, rgba(255, 255, 255, 0.6), transparent);
+      radial-gradient(0.5px 0.5px at 10px 20px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(0.5px 0.5px at 60px 80px, rgba(255,255,255,0.6), transparent),
+      radial-gradient(0.5px 0.5px at 110px 40px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 170px 120px, rgba(255,255,255,0.5), transparent),
+      radial-gradient(0.5px 0.5px at 220px 60px, rgba(255,255,255,0.65), transparent),
+      radial-gradient(0.5px 0.5px at 260px 30px, rgba(255,255,255,0.6), transparent);
     background-size: 280px 180px;
     background-repeat: repeat;
   }
 
+  /* Green-tinted colour stars */
   .stars-bg-color {
     background-image:
-      radial-gradient(1px 1px at 50px 50px, rgba(167, 139, 250, 0.9), transparent),
-      radial-gradient(1px 1px at 150px 100px, rgba(34, 211, 238, 0.8), transparent),
-      radial-gradient(1.5px 1.5px at 250px 70px, rgba(227, 92, 255, 0.85), transparent),
-      radial-gradient(1px 1px at 350px 30px, rgba(167, 139, 250, 0.7), transparent);
+      radial-gradient(1px 1px at 50px 50px, rgba(18,233,156,0.8), transparent),
+      radial-gradient(1px 1px at 150px 100px, rgba(34,211,238,0.7), transparent),
+      radial-gradient(1.5px 1.5px at 250px 70px, rgba(0,204,130,0.75), transparent),
+      radial-gradient(1px 1px at 350px 30px, rgba(18,233,156,0.6), transparent);
     background-size: 400px 200px;
     background-repeat: repeat;
   }
 
-  /* Cosmic grid overlay */
+  /* Subtle grid overlay */
   .grid-cosmic {
     background-image:
-      linear-gradient(rgba(139, 92, 246, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 92, 246, 0.07) 1px, transparent 1px);
+      linear-gradient(rgba(0,204,130,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,204,130,0.05) 1px, transparent 1px);
     background-size: 64px 64px;
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
     -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   }
 
-  /* Meteor streak */
+  /* Meteor */
   .meteor {
     position: absolute;
     width: 2px;
     height: 80px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), transparent);
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), transparent);
     border-radius: 9999px;
     opacity: 0;
-    box-shadow: 0 0 6px rgba(167, 139, 250, 0.7);
+    box-shadow: 0 0 6px rgba(0, 204, 130, 0.6);
   }
 }

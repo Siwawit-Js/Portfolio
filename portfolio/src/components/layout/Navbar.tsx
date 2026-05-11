@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
-import { ThemeToggle } from '../ui/ThemeToggle';
-
-interface NavbarProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -15,7 +9,7 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export function Navbar({ isDark, toggleTheme }: NavbarProps) {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -46,11 +40,11 @@ export function Navbar({ isDark, toggleTheme }: NavbarProps) {
             href="#"
             className="flex items-center gap-2 group"
           >
-            <span className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 via-nebula-500 to-cosmos-500 flex items-center justify-center shadow-glow-space group-hover:shadow-glow-nebula transition-shadow">
+            <span className="relative w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center shadow-glow-brand transition-shadow">
               <Sparkles className="w-4 h-4 text-white" />
             </span>
-            <span className="text-xl font-display font-bold gradient-text-galaxy">
-              Galaxy
+            <span className="text-xl font-display font-bold text-white">
+              Portfolio
             </span>
           </a>
 
@@ -65,14 +59,12 @@ export function Navbar({ isDark, toggleTheme }: NavbarProps) {
                 {link.label}
               </button>
             ))}
-            <div className="ml-2">
-              <ThemeToggle isDark={isDark} toggle={toggleTheme} />
-            </div>
+
           </div>
 
           {/* Mobile */}
           <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle isDark={isDark} toggle={toggleTheme} />
+
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
               className="p-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] transition-colors text-white"

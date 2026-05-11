@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, CheckCircle, Satellite } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, CheckCircle, Satellite, Loader2 } from 'lucide-react';
 import { getProfile } from '../../services/profile';
 import type { Profile } from '../../types';
 
 export function ContactSection() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     getProfile().then(setProfile);
@@ -21,17 +22,29 @@ export function ContactSection() {
     { icon: Linkedin, label: 'LinkedIn', value: 'LinkedIn Profile', href: profile?.linkedin ? toUrl(profile.linkedin) : undefined },
   ].filter((l) => l.value);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!profile?.email) return;
+    setStatus('sending');
+    setErrorMsg('');
 
-    const subject = encodeURIComponent(`Portfolio contact from ${form.name}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
-    );
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    setStatus('success');
-    setForm({ name: '', email: '', message: '' });
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? 'Failed to send message');
+      }
+
+      setStatus('success');
+      setForm({ name: '', email: '', message: '' });
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong');
+      setStatus('error');
+    }
   }
 
   return (
@@ -43,15 +56,14 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="mb-14"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cosmos-400/30 bg-cosmos-500/10 text-cosmos-400 text-xs font-semibold tracking-wider uppercase mb-4">
+          <p className="text-xs font-semibold tracking-widest uppercase text-primary-400 mb-3 flex items-center gap-2">
             <Satellite className="w-3.5 h-3.5" />
             Get In Touch
-          </span>
+          </p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
-            Let&apos;s Launch Something{' '}
-            <span className="gradient-text-galaxy">Together</span>
+            Let&apos;s work together
           </h2>
         </motion.div>
 
@@ -113,7 +125,7 @@ export function ContactSection() {
                   <div className="flex flex-col items-center justify-center h-48 gap-3 text-center">
                     <CheckCircle className="w-12 h-12 text-aurora-400" />
                     <p className="font-semibold text-white">Message launched!</p>
-                    <p className="text-sm text-slate-400">Your email client should open shortly.</p>
+                    <p className="text-sm text-slate-400">I&apos;ll get back to you soon.</p>
                     <button
                       onClick={() => setStatus('idle')}
                       className="mt-2 text-sm text-nebula-300 hover:underline"
@@ -148,12 +160,26 @@ export function ContactSection() {
                       className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white placeholder:text-slate-500 focus:outline-none focus:border-nebula-400/60 focus:ring-2 focus:ring-nebula-400/20 transition-all text-sm resize-none"
                     />
 
+                    {status === 'error' && (
+                      <p className="text-sm text-red-400">{errorMsg}</p>
+                    )}
+
                     <button
                       type="submit"
-                      className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-500 via-nebula-500 to-cosmos-500 text-white font-medium text-sm hover:shadow-glow-nebula transition-all duration-300 shadow-lg bg-[length:200%_100%] hover:bg-[position:100%_0]"
+                      disabled={status === 'sending'}
+                      className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-500 via-nebula-500 to-cosmos-500 text-white font-medium text-sm hover:shadow-glow-nebula transition-all duration-300 shadow-lg bg-[length:200%_100%] hover:bg-[position:100%_0] disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      <Send className="w-4 h-4" />
-                      Send Message
+                      {status === 'sending' ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Sending…
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          Send Message
+                        </>
+                      )}
                     </button>
                   </form>
                 )}

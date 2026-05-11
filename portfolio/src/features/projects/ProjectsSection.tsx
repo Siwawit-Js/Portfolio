@@ -160,19 +160,15 @@ export function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="mb-14"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-400/30 bg-primary-500/10 text-primary-300 text-xs font-semibold tracking-wider uppercase mb-4">
+          <p className="text-xs font-semibold tracking-widest uppercase text-primary-400 mb-3 flex items-center gap-2">
             <Rocket className="w-3.5 h-3.5" />
             My Work
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
-            Featured{' '}
-            <span className="gradient-text-galaxy">Missions</span>
-          </h2>
-          <p className="mt-4 text-slate-400 max-w-2xl mx-auto">
-            A selection of projects launched into orbit — showcasing my skills and passion for building great software.
           </p>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+            Featured Projects
+          </h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
@@ -187,7 +183,7 @@ export function ProjectsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="group relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md overflow-hidden hover:border-nebula-400/40 hover:shadow-glow-nebula transition-all duration-500 hover:-translate-y-1"
+                    className="group relative rounded-2xl border border-white/[0.12] bg-white/[0.06] backdrop-blur-2xl overflow-hidden hover:border-primary-400/40 hover:shadow-skill-card-hover transition-all duration-500 hover:-translate-y-1.5 shadow-skill-card"
                   >
                     <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary-500/15 via-nebula-500/10 to-cosmos-500/15">
                       <ImageCarousel
@@ -218,8 +214,11 @@ export function ProjectsSection() {
                       )}
                     </div>
 
+                    {/* Top shimmer line */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-300/50 to-transparent z-10" />
+
                     <div className="p-6">
-                      <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-nebula-300 transition-colors">
+                      <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
                         {project.title}
                       </h3>
                       <p className="text-sm text-slate-400 mb-4 line-clamp-2 leading-relaxed">
@@ -227,7 +226,7 @@ export function ProjectsSection() {
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {project.tech_stack.map((tech) => (
-                          <span key={tech} className="px-3 py-1 text-xs font-medium rounded-full border border-nebula-400/20 text-nebula-300 bg-nebula-500/5">
+                          <span key={tech} className="px-3 py-1 text-xs font-medium rounded-full border border-primary-400/25 text-primary-300 bg-primary-500/10">
                             {tech}
                           </span>
                         ))}

@@ -27,15 +27,14 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="mb-14"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cosmos-400/30 bg-cosmos-500/10 text-cosmos-400 text-xs font-semibold tracking-wider uppercase mb-4">
+          <p className="text-xs font-semibold tracking-widest uppercase text-primary-400 mb-3 flex items-center gap-2">
             <Star className="w-3.5 h-3.5" />
             About Me
-          </span>
+          </p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
-            Crafting Digital{' '}
-            <span className="gradient-text-galaxy">Galaxies</span>
+            A bit about myself
           </h2>
         </motion.div>
 

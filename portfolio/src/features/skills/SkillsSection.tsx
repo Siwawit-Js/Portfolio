@@ -1,253 +1,180 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Sparkles,
-  // Soft skill icons
-  MessageSquare,
-  Users,
-  Lightbulb,
-  Clock,
-  Repeat,
-  Palette,
-  Brain,
-  Crown,
-  Heart,
-  HeartHandshake,
-  Ear,
-  Mic,
-  Target,
-  Compass,
-  GraduationCap,
-  Scale,
-  Shield,
-  Smile,
-  TrendingUp,
-  Eye,
-  // Hard skill icons (lucide doesn't ship brand logos, use generic mapping)
-  Code2,
-  FileCode2,
-  Atom,
-  Boxes,
-  Cloud,
-  Database,
-  GitBranch,
-  Container,
-  Figma,
-  Server,
-  Globe,
-  Zap,
-  Wind,
-} from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
 import { getSkills } from '../../services/skills';
 import type { Skill } from '../../types';
 
-const SOFT_SKILL_ICONS: Record<string, LucideIcon> = {
-  communication: MessageSquare,
-  teamwork: Users,
-  collaboration: HeartHandshake,
-  leadership: Crown,
-  'problem-solving': Lightbulb,
-  problemsolving: Lightbulb,
-  'critical-thinking': Brain,
-  criticalthinking: Brain,
-  'time-management': Clock,
-  timemanagement: Clock,
-  adaptability: Repeat,
-  flexibility: Repeat,
-  creativity: Palette,
-  empathy: Heart,
-  'active-listening': Ear,
-  activelistening: Ear,
-  'public-speaking': Mic,
-  publicspeaking: Mic,
-  presentation: Mic,
-  focus: Target,
-  goal: Target,
-  mentoring: GraduationCap,
-  teaching: GraduationCap,
-  'decision-making': Scale,
-  decisionmaking: Scale,
-  'conflict-resolution': Shield,
-  conflictresolution: Shield,
-  resilience: Shield,
-  positivity: Smile,
-  attitude: Smile,
-  growth: TrendingUp,
-  'continuous-learning': TrendingUp,
-  curiosity: Eye,
-  initiative: Compass,
-  ownership: Compass,
+const FRONTEND_CATEGORIES = ['frontend'];
+const SOFT_CATEGORIES = ['soft skill', 'soft skills', 'softskill'];
+
+function classify(skill: Skill): 'frontend' | 'soft' | 'other' {
+  const cat = skill.category.toLowerCase();
+  if (SOFT_CATEGORIES.includes(cat)) return 'soft';
+  if (FRONTEND_CATEGORIES.includes(cat)) return 'frontend';
+  return 'other';
+}
+
+const CATEGORY_LABEL: Record<string, string> = {
+  Backend: 'Backend',
+  Database: 'Database',
+  Tools: 'Tools',
+  DevOps: 'DevOps',
+  Design: 'Design',
 };
-
-const HARD_SKILL_ICONS: Record<string, LucideIcon> = {
-  react: Atom,
-  'react.js': Atom,
-  reactjs: Atom,
-  typescript: FileCode2,
-  ts: FileCode2,
-  javascript: Code2,
-  js: Code2,
-  nextjs: Boxes,
-  'next.js': Boxes,
-  next: Boxes,
-  tailwind: Wind,
-  'tailwindcss': Wind,
-  'tailwind-css': Wind,
-  nodejs: Server,
-  'node.js': Server,
-  node: Server,
-  express: Server,
-  postgresql: Database,
-  postgres: Database,
-  mongodb: Database,
-  mysql: Database,
-  database: Database,
-  git: GitBranch,
-  github: GitBranch,
-  docker: Container,
-  kubernetes: Container,
-  k8s: Container,
-  aws: Cloud,
-  azure: Cloud,
-  gcp: Cloud,
-  cloud: Cloud,
-  figma: Figma,
-  api: Globe,
-  rest: Globe,
-  'rest-api': Globe,
-  graphql: Zap,
-};
-
-function normalizeKey(value: string | null | undefined): string {
-  if (!value) return '';
-  return value.trim().toLowerCase().replace(/\s+/g, '-');
-}
-
-function pickIcon(skill: Skill, kind: 'hard' | 'soft'): LucideIcon {
-  const map = kind === 'soft' ? SOFT_SKILL_ICONS : HARD_SKILL_ICONS;
-  const fromIcon = map[normalizeKey(skill.icon)];
-  if (fromIcon) return fromIcon;
-  const fromName = map[normalizeKey(skill.name)];
-  if (fromName) return fromName;
-  return kind === 'soft' ? Sparkles : Code2;
-}
-
-const SOFT_SKILL_CATEGORIES = ['softskill', 'soft skill', 'soft skills'];
-
-function classifySkill(skill: Skill): 'hard' | 'soft' {
-  return SOFT_SKILL_CATEGORIES.includes(skill.category.toLowerCase()) ? 'soft' : 'hard';
-}
 
 export function SkillsSection() {
   const [skills, setSkills] = useState<Skill[]>([]);
-  const [activeTab, setActiveTab] = useState<'hard' | 'soft'>('hard');
+  const [activeTab, setActiveTab] = useState<'technical' | 'soft'>('technical');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getSkills().then((data) => {
-      setSkills(data);
-      setLoading(false);
-    });
+    getSkills().then((data) => { setSkills(data); setLoading(false); });
   }, []);
 
-  const hardSkills = skills.filter((s) => classifySkill(s) === 'hard');
-  const softSkills = skills.filter((s) => classifySkill(s) === 'soft');
-  const filtered = activeTab === 'hard' ? hardSkills : softSkills;
+  const frontendSkills = skills.filter((s) => classify(s) === 'frontend');
+  const otherSkills = skills.filter((s) => classify(s) === 'other');
+  const softSkills = skills.filter((s) => classify(s) === 'soft');
+
+  // Group other hard skills by category
+  const otherByCategory = otherSkills.reduce<Record<string, Skill[]>>((acc, skill) => {
+    const cat = skill.category;
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(skill);
+    return acc;
+  }, {});
 
   return (
     <section id="skills" className="relative py-24 sm:py-32">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-nebula-500/[0.04] to-transparent pointer-events-none" />
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Section header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-14"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-nebula-400/30 bg-nebula-500/10 text-nebula-300 text-xs font-semibold tracking-wider uppercase mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Skills & Expertise
-          </span>
+          <p className="text-xs font-semibold tracking-widest uppercase text-primary-400 mb-3">Skills & Expertise</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
-            Constellations of{' '}
-            <span className="gradient-text-galaxy">Knowledge</span>
+            What I work with
           </h2>
         </motion.div>
 
-        {/* Hard / Soft tabs */}
+        {/* Tabs */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="flex justify-center mb-12"
+          className="flex gap-1 mb-12 border-b border-white/[0.08] w-fit"
         >
-          <div className="inline-flex rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-1 gap-1">
-            {(['hard', 'soft'] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-8 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
-                  activeTab === tab
-                    ? 'bg-gradient-to-r from-primary-500 to-nebula-500 text-white shadow-glow-space'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                {tab === 'hard' ? 'Hard Skills' : 'Soft Skills'}
-              </button>
-            ))}
-          </div>
+          {(['technical', 'soft'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-5 py-2.5 text-sm font-medium transition-all duration-200 border-b-2 -mb-px ${
+                activeTab === tab
+                  ? 'border-primary-400 text-white'
+                  : 'border-transparent text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              {tab === 'technical' ? 'Technical' : 'Soft Skills'}
+            </button>
+          ))}
         </motion.div>
 
-        {/* Skills grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {loading ? (
-            Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="animate-pulse rounded-2xl border border-white/10 bg-white/5 p-6 h-28" />
-            ))
-          ) : filtered.length === 0 ? (
-            <div className="col-span-full text-center py-12 text-slate-400">
-              No {activeTab === 'hard' ? 'hard' : 'soft'} skills added yet.
-            </div>
-          ) : (
-            filtered.map((skill, i) => {
-              const Icon = pickIcon(skill, activeTab);
-              return (
-                <motion.div
-                  key={skill.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="group relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 hover:border-nebula-400/40 hover:bg-white/[0.06] hover:shadow-glow-nebula transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-                >
-                  {/* Twinkle accent */}
-                  <span className="absolute top-3 right-3 w-1 h-1 rounded-full bg-white/60 animate-twinkle" />
+        {/* Technical Skills */}
+        {activeTab === 'technical' && (
+          <div className="space-y-10">
+            {/* Frontend — featured */}
+            {(loading || frontendSkills.length > 0) && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45 }}
+              >
+                <p className="text-xs font-semibold tracking-widest uppercase text-slate-500 mb-4">
+                  Front-end — Core Stack
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {loading
+                    ? Array.from({ length: 4 }).map((_, i) => (
+                        <div key={i} className="animate-pulse h-10 w-28 rounded-xl bg-white/[0.06]" />
+                      ))
+                    : frontendSkills.map((skill, i) => (
+                        <motion.span
+                          key={skill.id}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: i * 0.06 }}
+                          className="inline-flex items-center px-5 py-2.5 rounded-xl border border-primary-400/30 bg-primary-500/10 text-primary-300 text-sm font-semibold hover:border-primary-400/60 hover:bg-primary-500/15 transition-all duration-200 cursor-default"
+                        >
+                          {skill.name}
+                        </motion.span>
+                      ))}
+                </div>
+              </motion.div>
+            )}
 
-                  <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/20 to-nebula-500/20 border border-white/10 flex items-center justify-center mb-4 group-hover:from-primary-500/30 group-hover:to-nebula-500/30 transition-colors duration-300">
-                    <Icon className="w-6 h-6 text-nebula-300" />
-                  </div>
-                  <h3 className="font-semibold text-white mb-1">{skill.name}</h3>
-                  <p className="text-xs text-slate-400">{skill.category}</p>
+            {/* Other categories */}
+            {Object.entries(otherByCategory).map(([category, catSkills], gi) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: gi * 0.05 }}
+              >
+                <p className="text-xs font-semibold tracking-widest uppercase text-slate-500 mb-4">
+                  {CATEGORY_LABEL[category] ?? category}
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {catSkills.map((skill, i) => (
+                    <motion.span
+                      key={skill.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.25, delay: i * 0.04 }}
+                      className="inline-flex items-center px-4 py-2 rounded-xl border border-white/10 bg-white/[0.04] text-slate-400 text-sm font-medium hover:border-white/20 hover:text-slate-200 hover:bg-white/[0.07] transition-all duration-200 cursor-default"
+                    >
+                      {skill.name}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
-                  {/* Proficiency bar */}
-                  {typeof skill.proficiency === 'number' && (
-                    <div className="mt-3 h-1 w-full rounded-full bg-white/5 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-primary-400 via-nebula-400 to-cosmos-400"
-                        style={{ width: `${Math.min(100, Math.max(0, skill.proficiency))}%` }}
-                      />
-                    </div>
-                  )}
-                </motion.div>
-              );
-            })
-          )}
-        </div>
+        {/* Soft Skills */}
+        {activeTab === 'soft' && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="flex flex-wrap gap-3"
+          >
+            {loading
+              ? Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="animate-pulse h-10 w-32 rounded-xl bg-white/[0.06]" />
+                ))
+              : softSkills.map((skill, i) => (
+                  <motion.span
+                    key={skill.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    className="inline-flex items-center px-5 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 text-sm font-medium hover:border-nebula-400/30 hover:text-nebula-300 hover:bg-nebula-500/5 transition-all duration-200 cursor-default"
+                  >
+                    {skill.name}
+                  </motion.span>
+                ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );
