@@ -1,4 +1,4 @@
-import { SKILLS } from '../data/static';
+import { SKILLS } from '../data/skills';
 import type { Skill } from '../types';
 
 export async function getSkills(): Promise<Skill[]> {

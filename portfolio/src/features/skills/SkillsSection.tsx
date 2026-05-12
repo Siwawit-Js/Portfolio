@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getSkills } from '../../services/skills';
+import { FRONTEND_CATEGORIES, SOFT_CATEGORIES, CATEGORY_LABEL } from '../../data/skills';
 import type { Skill } from '../../types';
-
-const FRONTEND_CATEGORIES = ['frontend'];
-const SOFT_CATEGORIES = ['soft skill', 'soft skills', 'softskill'];
 
 function classify(skill: Skill): 'frontend' | 'soft' | 'other' {
   const cat = skill.category.toLowerCase();
@@ -12,14 +10,6 @@ function classify(skill: Skill): 'frontend' | 'soft' | 'other' {
   if (FRONTEND_CATEGORIES.includes(cat)) return 'frontend';
   return 'other';
 }
-
-const CATEGORY_LABEL: Record<string, string> = {
-  Backend: 'Backend',
-  Database: 'Database',
-  Tools: 'Tools',
-  DevOps: 'DevOps',
-  Design: 'Design',
-};
 
 export function SkillsSection() {
   const [skills, setSkills] = useState<Skill[]>([]);

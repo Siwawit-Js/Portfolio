@@ -1,13 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sparkles } from 'lucide-react';
-
-const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
-];
+import { Menu, X, BriefcaseBusiness } from 'lucide-react';
+import { NAV_LINKS } from '../../data/navigation';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,16 +34,16 @@ export function Navbar() {
             className="flex items-center gap-2 group"
           >
             <span className="relative w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center shadow-sm transition-shadow">
-              <Sparkles className="w-4 h-4 text-white" />
+              <BriefcaseBusiness className="w-4 h-4 text-white" />
             </span>
             <span className="text-xl font-display font-bold text-slate-900">
-              David
+              Portfolio
             </span>
           </a>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleClick(link.href)}
@@ -82,7 +75,7 @@ export function Navbar() {
         }`}
       >
         <div className="px-4 pb-4 space-y-1 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <button
               key={link.href}
               onClick={() => handleClick(link.href)}

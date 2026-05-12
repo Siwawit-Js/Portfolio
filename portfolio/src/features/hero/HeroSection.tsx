@@ -1,11 +1,44 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Download } from 'lucide-react';
+import { ArrowDown, Download } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { getProfile } from '../../services/profile';
 import type { Profile } from '../../types';
 
+function useTypingRole(roles: string[]) {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = roles[roleIndex];
+    const speed = isDeleting ? 40 : 80;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayed(current.slice(0, displayed.length + 1));
+        if (displayed.length + 1 === current.length) {
+          setTimeout(() => setIsDeleting(true), 1800);
+        }
+      } else {
+        setDisplayed(current.slice(0, displayed.length - 1));
+        if (displayed.length - 1 === 0) {
+          setIsDeleting(false);
+          setRoleIndex((i) => (i + 1) % roles.length);
+        }
+      }
+    }, speed);
+
+    return () => clearTimeout(timeout);
+  }, [displayed, isDeleting, roleIndex, roles]);
+
+  return displayed;
+}
+
 export function HeroSection() {
   const [profile, setProfile] = useState<Profile | null>(null);
+  const roles = profile?.role ? profile.role.split(',').map((r) => r.trim()) : ['Full Stack Developer'];
+  const typedRole = useTypingRole(roles);
 
   useEffect(() => {
     getProfile().then(setProfile);
@@ -39,9 +72,8 @@ export function HeroSection() {
               transition={{ duration: 0.55, delay: 0.08 }}
               className="text-5xl sm:text-6xl xl:text-[4.5rem] font-display font-bold tracking-tight leading-[1.05] text-slate-900 mb-6"
             >
-              Visual Designer
-              <br />
-              Based in California
+              {typedRole}
+              <span className="animate-pulse text-primary-500">|</span>
             </motion.h1>
 
             {/* Bio */}
@@ -92,13 +124,13 @@ export function HeroSection() {
               {profile?.github && (
                 <a href={toUrl(profile.github)} target="_blank" rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-white hover:border-slate-900 hover:bg-slate-900 transition-all duration-200">
-                  <Github className="w-4 h-4" />
+                  <FaGithub className="w-4 h-4" />
                 </a>
               )}
               {profile?.linkedin && (
                 <a href={toUrl(profile.linkedin)} target="_blank" rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white hover:bg-primary-600 transition-all duration-200 shadow-sm">
-                  <Linkedin className="w-4 h-4" />
+                  <FaLinkedin className="w-4 h-4" />
                 </a>
               )}
               {profile?.facebook && (

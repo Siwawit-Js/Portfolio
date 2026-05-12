@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Github, Linkedin, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { getProfile } from '../../services/profile';
 import type { Profile } from '../../types';
 
@@ -29,7 +30,7 @@ export function Footer() {
                 className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-all duration-200"
                 aria-label="GitHub"
               >
-                <Github className="w-5 h-5" />
+                <FaGithub className="w-5 h-5" />
               </a>
             )}
             {profile?.linkedin && (
@@ -40,7 +41,7 @@ export function Footer() {
                 className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-all duration-200"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-5 h-5" />
+                <FaLinkedin className="w-5 h-5" />
               </a>
             )}
             {profile?.facebook && (

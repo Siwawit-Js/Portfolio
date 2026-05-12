@@ -1,4 +1,4 @@
-import { PROJECTS } from '../data/static';
+import { PROJECTS } from '../data/projects';
 import type { Project } from '../types';
 
 export async function getProjects(): Promise<Project[]> {

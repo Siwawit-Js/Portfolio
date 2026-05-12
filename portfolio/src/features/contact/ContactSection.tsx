@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Send, CheckCircle, Satellite, Loader2 } from 'lucide-react';
+import { Mail, Send, CheckCircle, Satellite, Loader2 } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { getProfile } from '../../services/profile';
 import type { Profile } from '../../types';
 
@@ -18,8 +19,8 @@ export function ContactSection() {
 
   const contactLinks = [
     { icon: Mail, label: 'Email', value: profile?.email ?? undefined, href: profile?.email ? `mailto:${profile.email}` : undefined },
-    { icon: Github, label: 'GitHub', value: 'GitHub Profile', href: profile?.github ? toUrl(profile.github) : undefined },
-    { icon: Linkedin, label: 'LinkedIn', value: 'LinkedIn Profile', href: profile?.linkedin ? toUrl(profile.linkedin) : undefined },
+    { icon: FaGithub, label: 'GitHub', value: 'GitHub Profile', href: profile?.github ? toUrl(profile.github) : undefined },
+    { icon: FaLinkedin, label: 'LinkedIn', value: 'LinkedIn Profile', href: profile?.linkedin ? toUrl(profile.linkedin) : undefined },
   ].filter((l) => l.value);
 
   async function handleSubmit(e: React.FormEvent) {

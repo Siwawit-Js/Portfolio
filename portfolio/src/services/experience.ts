@@ -1,4 +1,4 @@
-import { EXPERIENCE } from '../data/static';
+import { EXPERIENCE } from '../data/experience';
 import type { Experience } from '../types';
 
 export async function getExperience(): Promise<Experience[]> {

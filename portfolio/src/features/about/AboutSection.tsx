@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Tv2, Music2, Gamepad2, Coffee, Star } from 'lucide-react';
+import { User, Star } from 'lucide-react';
 import { getProfile } from '../../services/profile';
+import { HOBBIES } from '../../data/hobbies';
 import type { Profile } from '../../types';
 
 export function AboutSection() {
@@ -10,13 +11,6 @@ export function AboutSection() {
   useEffect(() => {
     getProfile().then(setProfile);
   }, []);
-
-  const hobbies = [
-    { icon: Tv2, label: 'ดูหนัง', value: 'Movies' },
-    { icon: Music2, label: 'ฟังเพลง', value: 'Music' },
-    { icon: Gamepad2, label: 'เล่นเกม', value: 'Gaming' },
-    { icon: Coffee, label: 'กินชา', value: 'Tea' },
-  ];
 
   return (
     <section id="about" className="relative py-24 sm:py-32">
@@ -80,7 +74,7 @@ export function AboutSection() {
 
             {/* Hobbies grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
-              {hobbies.map((hobby, i) => (
+              {HOBBIES.map((hobby, i) => (
                 <motion.div
                   key={hobby.label}
                   initial={{ opacity: 0, y: 20 }}
