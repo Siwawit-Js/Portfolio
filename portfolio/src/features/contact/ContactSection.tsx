@@ -62,7 +62,7 @@ export function ContactSection() {
             <Satellite className="w-3.5 h-3.5" />
             Get In Touch
           </p>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900">
             Let&apos;s work together
           </h2>
         </motion.div>
@@ -78,15 +78,15 @@ export function ContactSection() {
           {/* Glow background */}
           <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/30 via-nebula-500/30 to-cosmos-500/30 rounded-3xl blur-2xl opacity-50" />
 
-          <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 sm:p-12">
+          <div className="relative rounded-2xl border border-slate-200 bg-white p-8 sm:p-12">
             <div className="grid sm:grid-cols-2 gap-10">
               {/* Left - Social links */}
               <div>
-                <h3 className="text-xl font-display font-bold text-white mb-2 flex items-center gap-2">
+                <h3 className="text-xl font-display font-bold text-slate-900 mb-2 flex items-center gap-2">
                   <Send className="w-5 h-5 text-nebula-300" />
                   Reach out
                 </h3>
-                <p className="text-sm text-slate-400 mb-6 leading-relaxed">
+                <p className="text-sm text-slate-600 mb-6 leading-relaxed">
                   Send a signal across the cosmos — I&apos;ll respond from my home planet.
                 </p>
 
@@ -94,16 +94,16 @@ export function ContactSection() {
                   {contactLinks.map((link, i) => {
                     const inner = (
                       <>
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500/20 to-nebula-500/20 border border-white/10 flex items-center justify-center group-hover:from-primary-500/30 group-hover:to-nebula-500/30 transition-colors">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500/20 to-nebula-500/20 border border-slate-200 flex items-center justify-center group-hover:from-primary-500/30 group-hover:to-nebula-500/30 transition-colors">
                           <link.icon className="w-5 h-5 text-nebula-300" />
                         </div>
                         <div>
                           <div className="text-xs text-slate-400">{link.label}</div>
-                          <div className="text-sm font-medium text-white">{link.value}</div>
+                          <div className="text-sm font-medium text-slate-900">{link.value}</div>
                         </div>
                       </>
                     );
-                    const className = "flex items-center gap-4 p-3 rounded-xl border border-white/10 bg-white/[0.03] transition-all duration-300 group" + (link.href ? " hover:border-nebula-400/40 hover:bg-white/[0.06] cursor-pointer" : " cursor-default");
+                    const className = "flex items-center gap-4 p-3 rounded-xl border border-slate-200 bg-slate-50 transition-all duration-300 group" + (link.href ? " hover:border-slate-300 hover:bg-slate-100 cursor-pointer" : " cursor-default");
                     return link.href ? (
                       <motion.a key={link.label} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: i * 0.1 }} className={className}>
                         {inner}
@@ -119,13 +119,13 @@ export function ContactSection() {
 
               {/* Right - Contact form */}
               <div>
-                <h3 className="text-xl font-display font-bold text-white mb-6">Send a Message</h3>
+                <h3 className="text-xl font-display font-bold text-slate-900 mb-6">Send a Message</h3>
 
                 {status === 'success' ? (
                   <div className="flex flex-col items-center justify-center h-48 gap-3 text-center">
                     <CheckCircle className="w-12 h-12 text-aurora-400" />
-                    <p className="font-semibold text-white">Message launched!</p>
-                    <p className="text-sm text-slate-400">I&apos;ll get back to you soon.</p>
+                    <p className="font-semibold text-slate-900">Message launched!</p>
+                    <p className="text-sm text-slate-600">I&apos;ll get back to you soon.</p>
                     <button
                       onClick={() => setStatus('idle')}
                       className="mt-2 text-sm text-nebula-300 hover:underline"
@@ -141,7 +141,7 @@ export function ContactSection() {
                       required
                       value={form.name}
                       onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white placeholder:text-slate-500 focus:outline-none focus:border-nebula-400/60 focus:ring-2 focus:ring-nebula-400/20 transition-all text-sm"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-nebula-400/60 focus:ring-2 focus:ring-nebula-400/20 transition-all text-sm"
                     />
                     <input
                       type="email"
@@ -149,7 +149,7 @@ export function ContactSection() {
                       required
                       value={form.email}
                       onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white placeholder:text-slate-500 focus:outline-none focus:border-nebula-400/60 focus:ring-2 focus:ring-nebula-400/20 transition-all text-sm"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-nebula-400/60 focus:ring-2 focus:ring-nebula-400/20 transition-all text-sm"
                     />
                     <textarea
                       placeholder="Your message"
@@ -157,7 +157,7 @@ export function ContactSection() {
                       rows={4}
                       value={form.message}
                       onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white placeholder:text-slate-500 focus:outline-none focus:border-nebula-400/60 focus:ring-2 focus:ring-nebula-400/20 transition-all text-sm resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-nebula-400/60 focus:ring-2 focus:ring-nebula-400/20 transition-all text-sm resize-none"
                     />
 
                     {status === 'error' && (

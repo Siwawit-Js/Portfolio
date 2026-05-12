@@ -33,7 +33,7 @@ export function ExperienceSection() {
             <Orbit className="w-3.5 h-3.5" />
             Career Path
           </span>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900">
             Work{' '}
             <span className="gradient-text-galaxy">Trajectory</span>
           </h2>
@@ -47,7 +47,7 @@ export function ExperienceSection() {
           <div className="space-y-8">
             {loading
               ? Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="animate-pulse ml-12 sm:ml-20 rounded-2xl border border-white/10 bg-white/5 p-6 h-40" />
+                  <div key={i} className="animate-pulse ml-12 sm:ml-20 rounded-2xl border border-slate-200 bg-slate-100 p-6 h-40" />
                 ))
               : experience.map((exp, i) => (
                   <motion.div
@@ -60,14 +60,14 @@ export function ExperienceSection() {
                   >
                     {/* Timeline dot — orbital marker */}
                     <div className="absolute left-0 sm:left-4 top-6 flex items-center justify-center">
-                      <div className={`relative w-9 h-9 rounded-full border-2 ${exp.is_current ? 'border-aurora-400 bg-aurora-500/20 shadow-glow-cosmos' : 'border-white/20 bg-space-900'} flex items-center justify-center`}>
+                      <div className={`relative w-9 h-9 rounded-full border-2 ${exp.is_current ? 'border-aurora-400 bg-aurora-50 shadow-sm' : 'border-slate-300 bg-white'} flex items-center justify-center`}>
                         {exp.is_current && <span className="absolute inset-0 rounded-full border-2 border-aurora-400/40 animate-ping" />}
                         <Briefcase className={`w-4 h-4 ${exp.is_current ? 'text-aurora-400' : 'text-slate-400'}`} />
                       </div>
                     </div>
 
                     {/* Card */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-md p-6 hover:border-nebula-400/30 hover:bg-white/[0.05] transition-all duration-300">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300">
                       {/* Current badge */}
                       {exp.is_current && (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-aurora-500/15 text-aurora-400 text-xs font-medium mb-3 border border-aurora-500/30">
@@ -76,10 +76,10 @@ export function ExperienceSection() {
                         </span>
                       )}
 
-                      <h3 className="text-lg font-display font-bold text-white">{exp.title}</h3>
-                      <p className="text-nebula-300 font-medium mt-1">{exp.company}</p>
+                      <h3 className="text-lg font-display font-bold text-slate-900">{exp.title}</h3>
+                      <p className="text-nebula-600 font-medium mt-1">{exp.company}</p>
 
-                      <div className="flex flex-wrap gap-4 mt-3 text-sm text-slate-400">
+                      <div className="flex flex-wrap gap-4 mt-3 text-sm text-slate-500">
                         {exp.location && (
                           <span className="flex items-center gap-1.5">
                             <MapPin className="w-3.5 h-3.5" /> {exp.location}
@@ -92,7 +92,7 @@ export function ExperienceSection() {
                       </div>
 
                       {exp.description && (
-                        <p className="mt-4 text-sm text-slate-300 leading-relaxed">{exp.description}</p>
+                        <p className="mt-4 text-sm text-slate-600 leading-relaxed">{exp.description}</p>
                       )}
                     </div>
                   </motion.div>

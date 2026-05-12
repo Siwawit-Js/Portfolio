@@ -4,6 +4,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────
+   Brand palette — single source of truth
+   All colours in this project reference these CSS variables
+   ───────────────────────────────────────────────────────── */
+:root {
+  /* Solid brand colours */
+  --clr-primary:        #00cc82;   /* primary-500 */
+  --clr-primary-lt:     #12e99c;   /* primary-400 */
+  --clr-primary-ltr:    #45f9b7;   /* primary-300 */
+  --clr-cosmos:         #22d3ee;   /* cosmos-400  */
+  --clr-aurora:         #34d399;   /* aurora-400  */
+  --clr-nebula:         #86efac;   /* nebula-300  */
+  --clr-bg-dark:        #0a0a0a;
+  --clr-text-muted:     #e2e8f0;   /* slate-200   */
+
+  /* primary-500 with opacity */
+  --clr-primary-05:     rgba(0, 204, 130, 0.05);
+  --clr-primary-15:     rgba(0, 204, 130, 0.15);
+  --clr-primary-25:     rgba(0, 204, 130, 0.25);
+  --clr-primary-30:     rgba(0, 204, 130, 0.30);
+  --clr-primary-50:     rgba(0, 204, 130, 0.50);
+  --clr-primary-60:     rgba(0, 204, 130, 0.60);
+  --clr-primary-75:     rgba(0, 204, 130, 0.75);
+  --clr-primary-80:     rgba(0, 204, 130, 0.80);
+
+  /* primary-400 with opacity */
+  --clr-primary-lt-40:  rgba(18, 233, 156, 0.40);
+  --clr-primary-lt-60:  rgba(18, 233, 156, 0.60);
+  --clr-primary-lt-70:  rgba(18, 233, 156, 0.70);
+  --clr-primary-lt-80:  rgba(18, 233, 156, 0.80);
+
+  /* cosmos-400 with opacity */
+  --clr-cosmos-70:      rgba(34, 211, 238, 0.70);
+
+  /* Dark background with opacity */
+  --clr-bg-dark-50:     rgba(10, 10, 10, 0.50);
+  --clr-bg-dark-90:     rgba(10, 10, 10, 0.90);
+
+  /* Toast colours (used in App.tsx Toaster) */
+  --toast-bg:           rgba(10, 10, 10, 0.90);
+  --toast-text:         #e2e8f0;
+  --toast-border:       rgba(0, 204, 130, 0.25);
+}
+
 @layer base {
   * {
     @apply border-slate-200 dark:border-white/10;
@@ -14,30 +58,22 @@
   }
 
   body {
-    @apply font-sans antialiased;
-    /* Neutral dark — no purple tint */
-    background-color: #0a0a0a;
-    color: #e5e7eb;
-    background-image:
-      radial-gradient(ellipse at 20% 0%,  rgba(0, 204, 130, 0.06), transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(0, 204, 130, 0.04), transparent 45%),
-      radial-gradient(ellipse at 50% 100%, rgba(34, 211, 238, 0.04), transparent 50%);
-    background-attachment: fixed;
+    @apply font-sans antialiased bg-slate-50 text-slate-900;
   }
 
   ::-webkit-scrollbar        { width: 6px; }
   ::-webkit-scrollbar-track  { background: transparent; }
   ::-webkit-scrollbar-thumb  {
-    background: linear-gradient(180deg, rgba(0,204,130,0.5), rgba(18,233,156,0.4));
+    background: linear-gradient(180deg, var(--clr-primary-50), var(--clr-primary-lt-40));
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(0,204,130,0.8), rgba(18,233,156,0.7));
+    background: linear-gradient(180deg, var(--clr-primary-80), var(--clr-primary-lt-70));
   }
 
   ::selection {
-    background-color: rgba(0, 204, 130, 0.30);
-    color: #fff;
+    background-color: var(--clr-primary-30);
+    @apply text-white;
   }
 }
 
@@ -47,10 +83,10 @@
   }
 
   .glass-cosmic {
-    background: rgba(10, 10, 10, 0.50);
+    background: var(--clr-bg-dark-50);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(0, 204, 130, 0.15);
+    border: 1px solid var(--clr-primary-15);
     box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
   }
 
@@ -60,7 +96,13 @@
   }
 
   .gradient-text-galaxy {
-    background: linear-gradient(110deg, #12e99c 0%, #45f9b7 35%, #22d3ee 70%, #12e99c 100%);
+    background: linear-gradient(
+      110deg,
+      var(--clr-primary-lt)  0%,
+      var(--clr-primary-ltr) 35%,
+      var(--clr-cosmos)      70%,
+      var(--clr-primary-lt)  100%
+    );
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -105,10 +147,10 @@
   /* Green-tinted colour stars */
   .stars-bg-color {
     background-image:
-      radial-gradient(1px 1px at 50px 50px, rgba(18,233,156,0.8), transparent),
-      radial-gradient(1px 1px at 150px 100px, rgba(34,211,238,0.7), transparent),
-      radial-gradient(1.5px 1.5px at 250px 70px, rgba(0,204,130,0.75), transparent),
-      radial-gradient(1px 1px at 350px 30px, rgba(18,233,156,0.6), transparent);
+      radial-gradient(1px 1px at 50px 50px, var(--clr-primary-lt-80), transparent),
+      radial-gradient(1px 1px at 150px 100px, var(--clr-cosmos-70), transparent),
+      radial-gradient(1.5px 1.5px at 250px 70px, var(--clr-primary-75), transparent),
+      radial-gradient(1px 1px at 350px 30px, var(--clr-primary-lt-60), transparent);
     background-size: 400px 200px;
     background-repeat: repeat;
   }
@@ -116,8 +158,8 @@
   /* Subtle grid overlay */
   .grid-cosmic {
     background-image:
-      linear-gradient(rgba(0,204,130,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,204,130,0.05) 1px, transparent 1px);
+      linear-gradient(var(--clr-primary-05) 1px, transparent 1px),
+      linear-gradient(90deg, var(--clr-primary-05) 1px, transparent 1px);
     background-size: 64px 64px;
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
     -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
@@ -131,6 +173,6 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.9), transparent);
     border-radius: 9999px;
     opacity: 0;
-    box-shadow: 0 0 6px rgba(0, 204, 130, 0.6);
+    box-shadow: 0 0 6px var(--clr-primary-60);
   }
 }

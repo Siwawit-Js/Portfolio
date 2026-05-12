@@ -55,7 +55,7 @@ export function SkillsSection() {
           className="mb-14"
         >
           <p className="text-xs font-semibold tracking-widest uppercase text-primary-400 mb-3">Skills & Expertise</p>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900">
             What I work with
           </h2>
         </motion.div>
@@ -66,7 +66,7 @@ export function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="flex gap-1 mb-12 border-b border-white/[0.08] w-fit"
+          className="flex gap-1 mb-12 border-b border-slate-200 w-fit"
         >
           {(['technical', 'soft'] as const).map((tab) => (
             <button
@@ -74,8 +74,8 @@ export function SkillsSection() {
               onClick={() => setActiveTab(tab)}
               className={`px-5 py-2.5 text-sm font-medium transition-all duration-200 border-b-2 -mb-px ${
                 activeTab === tab
-                  ? 'border-primary-400 text-white'
-                  : 'border-transparent text-slate-500 hover:text-slate-300'
+                  ? 'border-primary-400 text-slate-900'
+                  : 'border-transparent text-slate-500 hover:text-slate-700'
               }`}
             >
               {tab === 'technical' ? 'Technical' : 'Soft Skills'}
@@ -100,7 +100,7 @@ export function SkillsSection() {
                 <div className="flex flex-wrap gap-3">
                   {loading
                     ? Array.from({ length: 4 }).map((_, i) => (
-                        <div key={i} className="animate-pulse h-10 w-28 rounded-xl bg-white/[0.06]" />
+                        <div key={i} className="animate-pulse h-10 w-28 rounded-xl bg-slate-100" />
                       ))
                     : frontendSkills.map((skill, i) => (
                         <motion.span
@@ -109,7 +109,7 @@ export function SkillsSection() {
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.3, delay: i * 0.06 }}
-                          className="inline-flex items-center px-5 py-2.5 rounded-xl border border-primary-400/30 bg-primary-500/10 text-primary-300 text-sm font-semibold hover:border-primary-400/60 hover:bg-primary-500/15 transition-all duration-200 cursor-default"
+                          className="inline-flex items-center px-5 py-2.5 rounded-xl border border-primary-200 bg-primary-50 text-primary-600 text-sm font-semibold hover:border-primary-300 hover:bg-primary-100 transition-all duration-200 cursor-default"
                         >
                           {skill.name}
                         </motion.span>
@@ -138,7 +138,7 @@ export function SkillsSection() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.25, delay: i * 0.04 }}
-                      className="inline-flex items-center px-4 py-2 rounded-xl border border-white/10 bg-white/[0.04] text-slate-400 text-sm font-medium hover:border-white/20 hover:text-slate-200 hover:bg-white/[0.07] transition-all duration-200 cursor-default"
+                      className="inline-flex items-center px-5 py-2.5 rounded-xl border border-primary-200 bg-primary-50 text-primary-600 text-sm font-semibold hover:border-primary-300 hover:bg-primary-100 transition-all duration-200 cursor-default"
                     >
                       {skill.name}
                     </motion.span>
@@ -159,7 +159,7 @@ export function SkillsSection() {
           >
             {loading
               ? Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="animate-pulse h-10 w-32 rounded-xl bg-white/[0.06]" />
+                  <div key={i} className="animate-pulse h-10 w-32 rounded-xl bg-slate-100" />
                 ))
               : softSkills.map((skill, i) => (
                   <motion.span
@@ -168,7 +168,7 @@ export function SkillsSection() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: i * 0.05 }}
-                    className="inline-flex items-center px-5 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 text-sm font-medium hover:border-nebula-400/30 hover:text-nebula-300 hover:bg-nebula-500/5 transition-all duration-200 cursor-default"
+                    className="inline-flex items-center px-5 py-2.5 rounded-xl border border-primary-200 bg-primary-50 text-primary-600 text-sm font-semibold hover:border-primary-300 hover:bg-primary-100 transition-all duration-200 cursor-default"
                   >
                     {skill.name}
                   </motion.span>

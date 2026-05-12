@@ -166,7 +166,7 @@ export function ProjectsSection() {
             <Rocket className="w-3.5 h-3.5" />
             My Work
           </p>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900">
             Featured Projects
           </h2>
         </motion.div>
@@ -183,7 +183,7 @@ export function ProjectsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="group relative rounded-2xl border border-white/[0.12] bg-white/[0.06] backdrop-blur-2xl overflow-hidden hover:border-primary-400/40 hover:shadow-skill-card-hover transition-all duration-500 hover:-translate-y-1.5 shadow-skill-card"
+                    className="group relative rounded-2xl border border-slate-200 bg-white overflow-hidden hover:border-slate-300 transition-all duration-500 hover:-translate-y-1.5 shadow-sm hover:shadow-md"
                   >
                     <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary-500/15 via-nebula-500/10 to-cosmos-500/15">
                       <ImageCarousel
@@ -218,15 +218,15 @@ export function ProjectsSection() {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-300/50 to-transparent z-10" />
 
                     <div className="p-6">
-                      <h3 className="text-xl font-display font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
+                      <h3 className="text-xl font-display font-bold text-slate-900 mb-2 group-hover:text-primary-600 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-slate-400 mb-4 line-clamp-2 leading-relaxed">
+                      <p className="text-sm text-slate-600 mb-4 line-clamp-2 leading-relaxed">
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {project.tech_stack.map((tech) => (
-                          <span key={tech} className="px-3 py-1 text-xs font-medium rounded-full border border-primary-400/25 text-primary-300 bg-primary-500/10">
+                          <span key={tech} className="px-3 py-1 text-xs font-medium rounded-full border border-primary-200 text-primary-600 bg-primary-50">
                             {tech}
                           </span>
                         ))}
