@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Download } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { getProfile } from '../../services/profile';
-import type { Profile } from '../../types';
+import { FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
+import { useProfile } from '../../hooks/useProfile';
+import { toUrl } from '../../utils/helpers';
 
 function useTypingRole(roles: string[]) {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -36,15 +36,11 @@ function useTypingRole(roles: string[]) {
 }
 
 export function HeroSection() {
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const roles = profile?.role ? profile.role.split(',').map((r) => r.trim()) : ['Full Stack Developer'];
+  const profile = useProfile();
+  const roles = profile?.role
+    ? profile.role.split(',').map((r) => r.trim())
+    : ['Full Stack Developer'];
   const typedRole = useTypingRole(roles);
-
-  useEffect(() => {
-    getProfile().then(setProfile);
-  }, []);
-
-  const toUrl = (url: string) => /^https?:\/\//.test(url) ? url : `https://${url}`;
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
@@ -61,8 +57,8 @@ export function HeroSection() {
               className="inline-flex items-center gap-2.5 px-4 py-2 rounded-none border-2 border-slate-900 bg-white text-slate-900 text-sm font-bold mb-8 relative"
             >
               <div className="absolute -inset-1 border-2 border-primary-500 pointer-events-none -z-10 translate-x-1 translate-y-1" />
-              Hi everyone 👋, I'm{' '}
-              <span>{profile?.name ?? 'David'}</span>
+              Hi everyone, I'm{' '}
+              <span>{profile?.name ?? ''}</span>
             </motion.div>
 
             {/* H1 */}
@@ -136,9 +132,7 @@ export function HeroSection() {
               {profile?.facebook && (
                 <a href={toUrl(profile.facebook)} target="_blank" rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-white hover:border-slate-900 hover:bg-slate-900 transition-all duration-200">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
+                  <FaFacebook className="w-4 h-4" />
                 </a>
               )}
             </motion.div>

@@ -1,16 +1,10 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Star } from 'lucide-react';
-import { getProfile } from '../../services/profile';
+import { useProfile } from '../../hooks/useProfile';
 import { HOBBIES } from '../../data/hobbies';
-import type { Profile } from '../../types';
 
 export function AboutSection() {
-  const [profile, setProfile] = useState<Profile | null>(null);
-
-  useEffect(() => {
-    getProfile().then(setProfile);
-  }, []);
+  const profile = useProfile();
 
   return (
     <section id="about" className="relative py-24 sm:py-32">
@@ -39,24 +33,26 @@ export function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative flex items-center justify-center lg:justify-start"
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-square max-w-md mx-auto lg:mx-0">
-              {/* Glowing nebula border */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 via-nebula-500 to-cosmos-500 rounded-2xl blur-md opacity-60 animate-gradient bg-300%" />
-              <div className="relative rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
-                {profile?.avatar_url ? (
-                  <img src={profile.avatar_url} alt={profile.name} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-slate-100">
-                    <User className="w-32 h-32 text-slate-300" />
-                  </div>
-                )}
-              </div>
+            {/* Decorative shape — bottom right (large green blob) */}
+            <div className="absolute -bottom-10 -right-10 w-[450px] h-[150px] bg-primary-500 rounded-full rotate-[-20deg] hidden lg:block" />
+
+            {/* Scribble top left */}
+            <svg className="absolute top-6 -left-6 w-20 h-10 text-slate-900 hidden lg:block" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 38C20 10 30 5 45 20C60 35 70 5 98 2" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+
+            {/* Photo card */}
+            <div className="relative w-80 h-[400px] xl:w-[380px] xl:h-[480px] bg-slate-100 z-10 border-[6px] border-slate-900 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] animate-float">
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt={profile.name} className="w-full h-full object-cover object-center" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-slate-100">
+                  <User className="w-32 h-32 text-slate-300" />
+                </div>
+              )}
             </div>
-            {/* Floating decorations */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-nebula-500/10 rounded-2xl border border-nebula-400/20 backdrop-blur-md -z-10 hidden lg:block animate-float" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-cosmos-500/10 rounded-2xl border border-cosmos-400/20 backdrop-blur-md -z-10 hidden lg:block animate-float-delayed" />
           </motion.div>
 
           {/* Text content */}
@@ -76,7 +72,7 @@ export function AboutSection() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
               {HOBBIES.map((hobby, i) => (
                 <motion.div
-                  key={hobby.label}
+                  key={hobby.value}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}

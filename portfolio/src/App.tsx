@@ -1,6 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
+import { ScrollToTop } from './components/layout/ScrollToTop';
 
 import { HeroSection } from './features/hero/HeroSection';
 import { AboutSection } from './features/about/AboutSection';
@@ -22,6 +23,7 @@ export default function App() {
         <ContactSection />
       </main>
       <Footer />
+      <ScrollToTop />
       <Toaster
         position="bottom-right"
         toastOptions={{

@@ -6,3 +6,7 @@ export function formatDate(dateStr: string): string {
 export function cn(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(Boolean).join(' ');
 }
+
+export function toUrl(url: string): string {
+  return /^https?:\/\//.test(url) ? url : `https://${url}`;
+}

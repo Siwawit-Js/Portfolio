@@ -1,21 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Send, CheckCircle, Satellite, Loader2 } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { getProfile } from '../../services/profile';
-import type { Profile } from '../../types';
+import { useProfile } from '../../hooks/useProfile';
+import { toUrl } from '../../utils/helpers';
 
 export function ContactSection() {
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const profile = useProfile();
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
-
-  useEffect(() => {
-    getProfile().then(setProfile);
-  }, []);
-
-  const toUrl = (url: string) => url.startsWith('http') ? url : `https://${url}`;
 
   const contactLinks = [
     { icon: Mail, label: 'Email', value: profile?.email ?? undefined, href: profile?.email ? `mailto:${profile.email}` : undefined },
