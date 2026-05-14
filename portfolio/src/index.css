@@ -1,178 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─────────────────────────────────────────────────────────
-   Brand palette — single source of truth
-   All colours in this project reference these CSS variables
-   ───────────────────────────────────────────────────────── */
+/*
+  Editorial Brutalism — design tokens
+  Light = paper-and-ink. Dark = inverted "night reading".
+*/
 :root {
-  /* Solid brand colours */
-  --clr-primary:        #00cc82;   /* primary-500 */
-  --clr-primary-lt:     #12e99c;   /* primary-400 */
-  --clr-primary-ltr:    #45f9b7;   /* primary-300 */
-  --clr-cosmos:         #22d3ee;   /* cosmos-400  */
-  --clr-aurora:         #34d399;   /* aurora-400  */
-  --clr-nebula:         #86efac;   /* nebula-300  */
-  --clr-bg-dark:        #0a0a0a;
-  --clr-text-muted:     #e2e8f0;   /* slate-200   */
+  --paper: 245 241 232;    /* #F5F1E8 — warm off-white */
+  --ink: 15 15 15;         /* #0F0F0F — soft ink */
+  --muted: 102 96 84;      /* warm grey on paper */
+  --rule: 15 15 15;        /* hairlines */
+  --signal: 224 60 40;     /* #E03C28 — scarlet accent */
+}
 
-  /* primary-500 with opacity */
-  --clr-primary-05:     rgba(0, 204, 130, 0.05);
-  --clr-primary-15:     rgba(0, 204, 130, 0.15);
-  --clr-primary-25:     rgba(0, 204, 130, 0.25);
-  --clr-primary-30:     rgba(0, 204, 130, 0.30);
-  --clr-primary-50:     rgba(0, 204, 130, 0.50);
-  --clr-primary-60:     rgba(0, 204, 130, 0.60);
-  --clr-primary-75:     rgba(0, 204, 130, 0.75);
-  --clr-primary-80:     rgba(0, 204, 130, 0.80);
-
-  /* primary-400 with opacity */
-  --clr-primary-lt-40:  rgba(18, 233, 156, 0.40);
-  --clr-primary-lt-60:  rgba(18, 233, 156, 0.60);
-  --clr-primary-lt-70:  rgba(18, 233, 156, 0.70);
-  --clr-primary-lt-80:  rgba(18, 233, 156, 0.80);
-
-  /* cosmos-400 with opacity */
-  --clr-cosmos-70:      rgba(34, 211, 238, 0.70);
-
-  /* Dark background with opacity */
-  --clr-bg-dark-50:     rgba(10, 10, 10, 0.50);
-  --clr-bg-dark-90:     rgba(10, 10, 10, 0.90);
-
-  /* Toast colours (used in App.tsx Toaster) */
-  --toast-bg:           rgba(10, 10, 10, 0.90);
-  --toast-text:         #e2e8f0;
-  --toast-border:       rgba(0, 204, 130, 0.25);
+.dark {
+  --paper: 12 12 12;
+  --ink: 240 235 224;
+  --muted: 160 152 138;
+  --rule: 240 235 224;
+  --signal: 240 100 80;
 }
 
 @layer base {
-  * {
-    @apply border-slate-200 dark:border-white/10;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply font-sans antialiased bg-slate-50 text-slate-900;
-  }
-
-  ::-webkit-scrollbar        { width: 6px; }
-  ::-webkit-scrollbar-track  { background: transparent; }
-  ::-webkit-scrollbar-thumb  {
-    background: linear-gradient(180deg, var(--clr-primary-50), var(--clr-primary-lt-40));
-    border-radius: 9999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--clr-primary-80), var(--clr-primary-lt-70));
+    @apply bg-paper text-ink font-serif;
+    font-variation-settings: 'opsz' 14;
   }
 
   ::selection {
-    background-color: var(--clr-primary-30);
-    @apply text-white;
+    background: rgb(var(--signal));
+    color: rgb(var(--paper));
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--ink) / 0.4);
+    border: 2px solid rgb(var(--paper));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--signal));
   }
 }
 
 @layer utilities {
-  .glass {
-    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10;
+  .font-display {
+    font-family: 'Fraunces', ui-serif, Georgia, serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 0;
   }
 
-  .glass-cosmic {
-    background: var(--clr-bg-dark-50);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--clr-primary-15);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+  .display-wonk {
+    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
   }
 
-  /* Brand gradient text — green → teal */
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-400 via-aurora-400 to-cosmos-400 bg-clip-text text-transparent;
+  .hairline {
+    border-color: rgb(var(--rule) / 0.2);
   }
 
-  .gradient-text-galaxy {
-    background: linear-gradient(
-      110deg,
-      var(--clr-primary-lt)  0%,
-      var(--clr-primary-ltr) 35%,
-      var(--clr-cosmos)      70%,
-      var(--clr-primary-lt)  100%
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient 6s linear infinite;
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .dark .grain {
+    mix-blend-mode: screen;
+    opacity: 0.08;
   }
 
-  /* Starfield */
-  .stars-bg {
-    background-image:
-      radial-gradient(1px 1px at 20px 30px, #ffffff, transparent),
-      radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.85), transparent),
-      radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
-      radial-gradient(1.5px 1.5px at 130px 80px, rgba(255,255,255,0.9), transparent),
-      radial-gradient(1px 1px at 160px 30px, #ffffff, transparent),
-      radial-gradient(1px 1px at 200px 110px, rgba(255,255,255,0.7), transparent),
-      radial-gradient(2px 2px at 240px 60px, #ffffff, transparent),
-      radial-gradient(1px 1px at 280px 100px, rgba(255,255,255,0.85), transparent);
-    background-size: 320px 160px;
-    background-repeat: repeat;
+  .marker {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.18em];
   }
 
-  .stars-bg-far {
-    background-image:
-      radial-gradient(0.5px 0.5px at 10px 20px, rgba(255,255,255,0.7), transparent),
-      radial-gradient(0.5px 0.5px at 60px 80px, rgba(255,255,255,0.6), transparent),
-      radial-gradient(0.5px 0.5px at 110px 40px, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1px 1px at 170px 120px, rgba(255,255,255,0.5), transparent),
-      radial-gradient(0.5px 0.5px at 220px 60px, rgba(255,255,255,0.65), transparent),
-      radial-gradient(0.5px 0.5px at 260px 30px, rgba(255,255,255,0.6), transparent);
-    background-size: 280px 180px;
-    background-repeat: repeat;
-  }
-
-  /* Green-tinted colour stars */
-  .stars-bg-color {
-    background-image:
-      radial-gradient(1px 1px at 50px 50px, var(--clr-primary-lt-80), transparent),
-      radial-gradient(1px 1px at 150px 100px, var(--clr-cosmos-70), transparent),
-      radial-gradient(1.5px 1.5px at 250px 70px, var(--clr-primary-75), transparent),
-      radial-gradient(1px 1px at 350px 30px, var(--clr-primary-lt-60), transparent);
-    background-size: 400px 200px;
-    background-repeat: repeat;
-  }
-
-  /* Subtle grid overlay */
-  .grid-cosmic {
-    background-image:
-      linear-gradient(var(--clr-primary-05) 1px, transparent 1px),
-      linear-gradient(90deg, var(--clr-primary-05) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  }
-
-  /* Meteor */
-  .meteor {
-    position: absolute;
-    width: 2px;
-    height: 80px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), transparent);
-    border-radius: 9999px;
-    opacity: 0;
-    box-shadow: 0 0 6px var(--clr-primary-60);
+  .display-lead {
+    @apply font-display font-light tracking-editorial;
+    line-height: 0.92;
   }
 }

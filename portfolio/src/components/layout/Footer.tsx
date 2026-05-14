@@ -1,61 +1,35 @@
-import { Heart } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
-import { useProfile } from '../../hooks/useProfile';
-import { toUrl } from '../../utils/helpers';
-
-const SOCIAL_LINK_CLASS =
-  'p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200';
+import { PROFILE } from '../../data/profile';
 
 export function Footer() {
-  const profile = useProfile();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-slate-200 bg-white/80 backdrop-blur-xl">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-600 flex items-center gap-1.5">
-            Crafted with <Heart className="w-3.5 h-3.5 text-primary-500 fill-current" /> by Siwawit
-          </p>
-
-          <div className="flex items-center gap-3">
-            {profile?.github && (
-              <a
-                href={toUrl(profile.github)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={SOCIAL_LINK_CLASS}
-                aria-label="GitHub"
-              >
-                <FaGithub className="w-5 h-5" />
-              </a>
-            )}
-            {profile?.linkedin && (
-              <a
-                href={toUrl(profile.linkedin)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={SOCIAL_LINK_CLASS}
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin className="w-5 h-5" />
-              </a>
-            )}
-            {profile?.facebook && (
-              <a
-                href={toUrl(profile.facebook)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={SOCIAL_LINK_CLASS}
-                aria-label="Facebook"
-              >
-                <FaFacebook className="w-5 h-5" />
-              </a>
-            )}
+    <footer className="relative border-t border-ink/15 px-6 py-12 md:px-12 lg:px-20">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-6 text-ink/70">
+        <div className="col-span-12 md:col-span-4">
+          <div className="font-display text-2xl tracking-editorial text-ink">
+            {PROFILE.name}.
           </div>
+          <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.2em]">
+            Bangkok / Pathum Thani — Thailand
+          </p>
         </div>
-        <p className="text-center text-xs text-slate-500 mt-6">
-          © {new Date().getFullYear()} {profile?.name ?? ''} · Wandering the cosmos.
-        </p>
+
+        <div className="col-span-6 md:col-span-4">
+          <div className="marker mb-3 text-ink/50">Colophon</div>
+          <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] leading-relaxed">
+            Set in Fraunces &amp; Newsreader.
+            <br />
+            Hand-typeset with React &amp; Tailwind.
+          </p>
+        </div>
+
+        <div className="col-span-6 md:col-span-4 md:text-right">
+          <div className="marker mb-3 text-ink/50">© {year}</div>
+          <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em]">
+            Every pixel — placed on purpose.
+          </p>
+        </div>
       </div>
     </footer>
   );

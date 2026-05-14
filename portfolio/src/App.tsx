@@ -1,41 +1,28 @@
-import { Toaster } from 'react-hot-toast';
-import { Navbar } from './components/layout/Navbar';
+import { Nav } from './components/layout/Nav';
 import { Footer } from './components/layout/Footer';
-import { ScrollToTop } from './components/layout/ScrollToTop';
+import { Grain } from './components/layout/Grain';
 
-import { HeroSection } from './features/hero/HeroSection';
-import { AboutSection } from './features/about/AboutSection';
-import { SkillsSection } from './features/skills/SkillsSection';
-import { ProjectsSection } from './features/projects/ProjectsSection';
-import { ExperienceSection } from './features/experience/ExperienceSection';
-import { ContactSection } from './features/contact/ContactSection';
+import { Hero } from './sections/Hero';
+import { About } from './sections/About';
+import { Skills } from './sections/Skills';
+import { Experience } from './sections/Experience';
+import { Projects } from './sections/Projects';
+import { Contact } from './sections/Contact';
 
 export default function App() {
   return (
-    <div className="relative min-h-screen text-slate-900 bg-slate-50">
-      <Navbar />
+    <div className="relative min-h-screen bg-paper text-ink">
+      <Grain />
+      <Nav />
       <main className="relative">
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ExperienceSection />
-        <ContactSection />
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Contact />
       </main>
       <Footer />
-      <ScrollToTop />
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          className: 'text-sm font-medium',
-          style: {
-            background: 'var(--toast-bg)',
-            color: 'var(--toast-text)',
-            border: '1px solid var(--toast-border)',
-            backdropFilter: 'blur(12px)',
-          },
-        }}
-      />
     </div>
   );
 }

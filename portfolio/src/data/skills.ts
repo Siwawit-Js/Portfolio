@@ -40,15 +40,3 @@ export const SKILLS: Skill[] = [
   { id: 'ss-6', name: 'Creativity', category: 'Soft Skill', icon: 'creativity', proficiency: 85, sort_order: 6 },
   { id: 'ss-7', name: 'Critical Thinking', category: 'Soft Skill', icon: 'critical-thinking', proficiency: 85, sort_order: 7 },
 ];
-
-export const FRONTEND_CATEGORIES = ['frontend'];
-export const SOFT_CATEGORIES = ['soft skill', 'soft skills', 'softskill'];
-
-export const CATEGORY_LABEL: Record<string, string> = {
-  Backend: 'Backend',
-  Database: 'Database',
-  Tools: 'Tools',
-  DevOps: 'DevOps',
-  Design: 'Design',
-  'AI Tools': 'AI Tools',
-};
