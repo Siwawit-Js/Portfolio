@@ -1,25 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*
-  Editorial Brutalism — design tokens
-  Light = paper-and-ink. Dark = inverted "night reading".
+  Digital - Visual Designer Aesthetic
 */
 :root {
-  --paper: 245 241 232;    /* #F5F1E8 — warm off-white */
-  --ink: 15 15 15;         /* #0F0F0F — soft ink */
-  --muted: 102 96 84;      /* warm grey on paper */
-  --rule: 15 15 15;        /* hairlines */
-  --signal: 224 60 40;     /* #E03C28 — scarlet accent */
+  --background: 255 255 255;   /* White */
+  --surface: 248 249 250;      /* Light gray surface */
+  --ink: 15 23 42;             /* Slate 900 for text */
+  --muted: 100 116 139;        /* Slate 500 */
+  --rule: 226 232 240;         /* Slate 200 for lines */
+  --primary: 99 102 241;       /* Indigo 500 (Purple accent) */
+  --accent: 236 72 153;        /* Pink 500 */
 }
 
-.dark {
-  --paper: 12 12 12;
-  --ink: 240 235 224;
-  --muted: 160 152 138;
-  --rule: 240 235 224;
-  --signal: 240 100 80;
+/* Dark mode overrides (mainly for the contact footer section) */
+.dark-section {
+  --background: 15 23 42;      /* Slate 900 */
+  --surface: 30 41 59;         /* Slate 800 */
+  --ink: 248 250 252;          /* Slate 50 */
+  --muted: 148 163 184;        /* Slate 400 */
+  --rule: 51 65 85;            /* Slate 700 */
 }
 
 @layer base {
@@ -37,66 +41,37 @@
   }
 
   body {
-    @apply bg-paper text-ink font-serif;
-    font-variation-settings: 'opsz' 14;
+    @apply bg-background text-ink font-sans;
   }
 
   ::selection {
-    background: rgb(var(--signal));
-    color: rgb(var(--paper));
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgb(var(--ink) / 0.4);
-    border: 2px solid rgb(var(--paper));
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--signal));
+    background: rgb(var(--primary) / 0.2);
+    color: rgb(var(--ink));
   }
 }
 
 @layer utilities {
-  .font-display {
-    font-family: 'Fraunces', ui-serif, Georgia, serif;
-    font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 0;
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgb(var(--rule) / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--rule) / 0.5) 1px, transparent 1px);
+    background-position: center top;
   }
 
-  .display-wonk {
-    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+  .mesh-blob {
+    @apply absolute rounded-full blur-[80px] opacity-40 mix-blend-multiply animate-mesh;
   }
 
-  .hairline {
-    border-color: rgb(var(--rule) / 0.2);
+  .mesh-cyan {
+    background: radial-gradient(circle, rgba(6,182,212,0.8) 0%, rgba(6,182,212,0) 70%);
   }
 
-  .grain {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.06;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  .mesh-pink {
+    background: radial-gradient(circle, rgba(236,72,153,0.8) 0%, rgba(236,72,153,0) 70%);
   }
 
-  .dark .grain {
-    mix-blend-mode: screen;
-    opacity: 0.08;
-  }
-
-  .marker {
-    @apply font-mono text-[0.7rem] uppercase tracking-[0.18em];
-  }
-
-  .display-lead {
-    @apply font-display font-light tracking-editorial;
-    line-height: 0.92;
+  .mesh-yellow {
+    background: radial-gradient(circle, rgba(250,204,21,0.8) 0%, rgba(250,204,21,0) 70%);
   }
 }
