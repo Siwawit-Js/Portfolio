@@ -8,45 +8,23 @@ export function Hero() {
     <section id="top" className="relative min-h-screen px-6 pt-32 pb-16 md:px-12 md:pt-40 lg:px-20">
       <div className="mx-auto grid min-h-[calc(100vh-12rem)] max-w-[1400px] grid-cols-12 gap-6">
 
-        {/* Top metadata strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="col-span-12 grid grid-cols-12 gap-6 border-b border-ink/15 pb-8"
-        >
-          <div className="col-span-6 md:col-span-3">
-            <div className="marker text-ink/50">Issue №01</div>
-            <div className="mt-1 font-mono text-xs">
-              {new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })}
-            </div>
-          </div>
-          <div className="col-span-6 md:col-span-3">
-            <div className="marker text-ink/50">Status</div>
-            <div className="mt-1 flex items-center gap-2 font-mono text-xs">
-              <span className="inline-block h-1.5 w-1.5 animate-pulse bg-signal" />
-              Open to opportunities
-            </div>
-          </div>
-          <div className="hidden md:col-span-3 md:block">
-            <div className="marker text-ink/50">Working from</div>
-            <div className="mt-1 font-mono text-xs">Bangkok, Thailand</div>
-          </div>
-          <div className="hidden md:col-span-3 md:block md:text-right">
-            <div className="marker text-ink/50">Section</div>
-            <div className="mt-1 font-mono text-xs">Cover / Index</div>
-          </div>
-        </motion.div>
-
         {/* Headline block */}
         <div className="col-span-12 flex flex-col justify-center md:col-span-9">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+            className="mb-6 flex flex-wrap items-center gap-x-6 gap-y-2"
           >
-            <div className="marker mb-6 text-ink/60">
+            <div className="marker text-ink/60">
               A portfolio by — <span className="text-signal">Siwawit J.</span>
+            </div>
+            <div className="marker flex items-center gap-2 text-ink/60">
+              <span className="inline-block h-1.5 w-1.5 animate-pulse bg-signal" />
+              Working from Bangkok, Thailand
+            </div>
+            <div className="marker text-ink/60">
+              Role — <span className="text-ink">Full-Stack Developer</span>
             </div>
           </motion.div>
 
@@ -96,7 +74,7 @@ export function Hero() {
         >
           <div className="border-l-2 border-signal pl-4 md:pl-6">
             <div className="font-display text-2xl italic display-wonk leading-tight md:text-3xl">
-              "Clean code &<br />thoughtful design."
+              "Web Application"
             </div>
             <div className="mt-3 marker text-ink/60">
               — Siwawit's process

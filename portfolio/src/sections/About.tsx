@@ -13,8 +13,8 @@ export function About() {
       eyebrow="About"
       title={
         <>
-          A curious mind<br />
-          <span className="italic display-wonk text-signal">at work.</span>
+          Hello,<br />
+          <span className="italic display-wonk text-signal">dear reader.</span>
         </>
       }
     >
