@@ -34,7 +34,7 @@ export function About() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="relative card-neon neon-ring rounded-3xl overflow-hidden aspect-[4/5] max-w-sm"
+              className="relative card-neon rounded-3xl overflow-hidden aspect-[4/5] max-w-sm"
             >
               {PROFILE.avatar_url ? (
                 <img
@@ -82,7 +82,7 @@ export function About() {
               className="font-display font-bold text-[clamp(2.25rem,5.5vw,4.75rem)] leading-[0.98] tracking-tight text-ink"
             >
               Curious by nature.<br />
-              <span className="text-gradient">Builder</span> by choice.
+              <span className="text-primary">Builder</span> by choice.
             </motion.h2>
 
             <div className="mt-8 space-y-5 max-w-2xl">

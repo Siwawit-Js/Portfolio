@@ -51,7 +51,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="card-neon neon-ring relative w-full max-w-4xl rounded-3xl overflow-hidden"
+            className="card-neon relative w-full max-w-4xl rounded-3xl overflow-hidden"
           >
             {/* Close */}
             <button
@@ -80,8 +80,8 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
               {/* Category badge */}
               <div className="absolute top-5 left-5">
-                <span className="glass inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-mono uppercase tracking-wider text-primary">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgb(var(--primary))]" />
+                <span className="glass inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-mono uppercase tracking-wider text-ink/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   {CATEGORY_LABEL[project.category]}
                 </span>
               </div>
@@ -125,7 +125,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                     href={project.live_url}
                     target="_blank"
                     rel="noreferrer"
-                    className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-background font-semibold text-sm hover:shadow-[0_0_24px_rgb(var(--primary)/0.55)] transition-shadow"
+                    className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-background font-semibold text-sm hover:bg-primary transition-colors"
                   >
                     View live
                     <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

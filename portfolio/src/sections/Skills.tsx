@@ -42,41 +42,44 @@ interface IconMeta {
   color: string;
 }
 
+const MONO = '#E8E6E2';
+const GOLD = '#C9A66B';
+
 const ICONS: Record<string, IconMeta> = {
   // Frontend
-  react:      { Icon: SiReact,        color: '#61dafb' },
-  typescript: { Icon: SiTypescript,   color: '#3178c6' },
-  nextjs:     { Icon: SiNextdotjs,    color: '#f5f5f7' },
-  tailwind:   { Icon: SiTailwindcss,  color: '#38bdf8' },
-  nuxt:       { Icon: SiNuxt,         color: '#00dc82' },
+  react:      { Icon: SiReact,        color: MONO },
+  typescript: { Icon: SiTypescript,   color: MONO },
+  nextjs:     { Icon: SiNextdotjs,    color: MONO },
+  tailwind:   { Icon: SiTailwindcss,  color: MONO },
+  nuxt:       { Icon: SiNuxt,         color: MONO },
   // Backend
-  nodejs:     { Icon: SiNodedotjs,    color: '#5fa04e' },
-  express:    { Icon: SiExpress,      color: '#f5f5f7' },
-  api:        { Icon: Globe,          color: '#00f5ff' },
+  nodejs:     { Icon: SiNodedotjs,    color: MONO },
+  express:    { Icon: SiExpress,      color: MONO },
+  api:        { Icon: Globe,          color: MONO },
   // Database
-  postgresql: { Icon: SiPostgresql,   color: '#4169e1' },
-  mongodb:    { Icon: SiMongodb,      color: '#47a248' },
-  supabase:   { Icon: SiSupabase,     color: '#3ecf8e' },
+  postgresql: { Icon: SiPostgresql,   color: MONO },
+  mongodb:    { Icon: SiMongodb,      color: MONO },
+  supabase:   { Icon: SiSupabase,     color: MONO },
   // Tools / DevOps / Design
-  git:        { Icon: SiGit,          color: '#f05033' },
-  docker:     { Icon: SiDocker,       color: '#2496ed' },
-  figma:      { Icon: SiFigma,        color: '#a259ff' },
+  git:        { Icon: SiGit,          color: MONO },
+  docker:     { Icon: SiDocker,       color: MONO },
+  figma:      { Icon: SiFigma,        color: MONO },
   // AI Tools
-  chatgpt:    { Icon: SiOpenai,       color: '#10a37f' },
-  claude:     { Icon: Sparkles,       color: '#d97757' },
-  copilot:    { Icon: SiGithub,       color: '#f5f5f7' },
-  gemini:     { Icon: SiGoogle,       color: '#4285f4' },
+  chatgpt:    { Icon: SiOpenai,       color: MONO },
+  claude:     { Icon: Sparkles,       color: MONO },
+  copilot:    { Icon: SiGithub,       color: MONO },
+  gemini:     { Icon: SiGoogle,       color: MONO },
   // Soft skills
-  'communication':     { Icon: MessageSquare, color: '#00f5ff' },
-  'teamwork':          { Icon: Users,         color: '#ff00d4' },
-  'problem-solving':   { Icon: Lightbulb,     color: '#c6ff00' },
-  'time-management':   { Icon: Clock,         color: '#a855f7' },
-  'adaptability':      { Icon: Shuffle,       color: '#00f5ff' },
-  'creativity':        { Icon: Palette,       color: '#ff00d4' },
-  'critical-thinking': { Icon: Brain,         color: '#c6ff00' },
+  'communication':     { Icon: MessageSquare, color: GOLD },
+  'teamwork':          { Icon: Users,         color: GOLD },
+  'problem-solving':   { Icon: Lightbulb,     color: GOLD },
+  'time-management':   { Icon: Clock,         color: GOLD },
+  'adaptability':      { Icon: Shuffle,       color: GOLD },
+  'creativity':        { Icon: Palette,       color: GOLD },
+  'critical-thinking': { Icon: Brain,         color: GOLD },
 };
 
-const FALLBACK_ICON: IconMeta = { Icon: Code2, color: '#f5f5f7' };
+const FALLBACK_ICON: IconMeta = { Icon: Code2, color: MONO };
 
 const CATEGORY_ORDER = [
   'Frontend',
@@ -159,7 +162,7 @@ export function Skills() {
               transition={{ duration: 0.7 }}
               className="font-display font-bold text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-tight text-ink"
             >
-              My <span className="text-gradient">toolbox</span>.
+              My <span className="text-primary">toolbox</span>.
             </motion.h2>
 
             <motion.p
@@ -197,14 +200,14 @@ export function Skills() {
                   'relative px-4 py-2 rounded-full text-xs font-mono uppercase tracking-[0.16em] transition-all',
                   active
                     ? 'text-background'
-                    : 'text-ink/70 hover:text-ink border border-rule hover:border-primary/40',
+                    : 'text-ink/70 hover:text-ink border border-rule hover:border-ink/40',
                 ].join(' ')}
               >
                 {active && (
                   <motion.span
                     layoutId="active-skill-pill"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.55 }}
-                    className="absolute inset-0 rounded-full bg-primary shadow-[0_0_24px_rgb(var(--primary)/0.55)]"
+                    className="absolute inset-0 rounded-full bg-ink"
                   />
                 )}
                 <span className="relative z-10 inline-flex items-center gap-2">
@@ -281,8 +284,7 @@ function HardSkillGrid({ items }: { items: Skill[] }) {
           >
             <div className="flex items-center gap-3">
               <span
-                className="grid place-items-center w-10 h-10 rounded-xl bg-surface-2"
-                style={{ boxShadow: `0 0 24px ${color}22` }}
+                className="grid place-items-center w-10 h-10 rounded-xl bg-surface-2 border border-rule"
               >
                 <Icon size={22} style={{ color }} />
               </span>
@@ -318,8 +320,7 @@ function SoftSkillGrid({ items }: { items: Skill[] }) {
             className="card-neon rounded-2xl p-5 flex flex-col items-center text-center"
           >
             <span
-              className="grid place-items-center w-12 h-12 rounded-2xl bg-surface-2 mb-3"
-              style={{ boxShadow: `0 0 24px ${color}22` }}
+              className="grid place-items-center w-12 h-12 rounded-2xl bg-surface-2 mb-3 border border-rule"
             >
               <Icon size={22} style={{ color }} />
             </span>

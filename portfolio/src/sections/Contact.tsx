@@ -74,12 +74,6 @@ export function Contact() {
       id="contact"
       className="relative px-6 pt-28 pb-20 md:px-12 md:pt-36 lg:px-20 z-10 overflow-hidden"
     >
-      {/* Local glow underlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-primary/10 blur-[140px]" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/10 blur-[140px]" />
-      </div>
-
       <div className="mx-auto w-full max-w-[1280px] relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -98,7 +92,7 @@ export function Contact() {
           className="font-display font-bold text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tighter text-ink max-w-4xl"
         >
           Let's build something{' '}
-          <span className="text-gradient">extraordinary</span>.
+          <span className="text-primary">extraordinary</span>.
         </motion.h2>
 
         <motion.p
@@ -168,7 +162,7 @@ export function Contact() {
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
-                className="mt-5 flex items-center gap-2 text-sm text-accent"
+                className="mt-5 flex items-center gap-2 text-sm text-ink/80"
                 role="alert"
               >
                 <AlertCircle size={14} />
@@ -198,7 +192,7 @@ export function Contact() {
             <button
               type="submit"
               disabled={submitting}
-              className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-background font-semibold text-sm hover:shadow-[0_0_28px_rgb(var(--primary)/0.55)] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-ink text-background font-semibold text-sm hover:bg-primary transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {submitting ? (
                 <>

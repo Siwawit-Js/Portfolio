@@ -36,9 +36,8 @@ export function Nav() {
       >
         {/* Logo */}
         <a href="#top" className="flex items-center gap-3 group">
-          <div className="relative grid place-items-center w-9 h-9 rounded-lg neon-ring bg-surface">
-            <span className="font-display font-bold text-lg text-gradient">S</span>
-            <span className="absolute -bottom-1 -right-1 w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
+          <div className="relative grid place-items-center w-9 h-9 rounded-lg border border-rule bg-surface">
+            <span className="font-display font-bold text-lg text-ink">S</span>
           </div>
           <span className="font-display font-bold text-lg tracking-tight text-ink">
             siwawit<span className="text-primary">.dev</span>
@@ -63,7 +62,7 @@ export function Nav() {
         <div className="flex items-center gap-3">
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-background font-semibold text-xs uppercase tracking-wider hover:shadow-[0_0_24px_rgb(var(--primary)/0.55)] transition-shadow"
+            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-ink text-background font-semibold text-xs uppercase tracking-wider hover:bg-primary transition-colors"
           >
             Hire Me
           </a>
@@ -109,7 +108,7 @@ export function Nav() {
                 <a
                   href="#contact"
                   onClick={() => setOpen(false)}
-                  className="block text-center py-3 rounded-xl bg-primary text-background font-semibold text-xs uppercase tracking-wider"
+                  className="block text-center py-3 rounded-xl bg-ink text-background font-semibold text-xs uppercase tracking-wider"
                 >
                   Hire Me
                 </a>

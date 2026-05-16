@@ -31,28 +31,30 @@ interface IconMeta {
   color: string;
 }
 
+const MONO = '#E8E6E2';
+
 const ICONS: Record<string, IconMeta> = {
-  react:      { Icon: SiReact,        color: '#61dafb' },
-  typescript: { Icon: SiTypescript,   color: '#3178c6' },
-  nextjs:     { Icon: SiNextdotjs,    color: '#f5f5f7' },
-  tailwind:   { Icon: SiTailwindcss,  color: '#38bdf8' },
-  nuxt:       { Icon: SiNuxt,         color: '#00dc82' },
-  nodejs:     { Icon: SiNodedotjs,    color: '#5fa04e' },
-  express:    { Icon: SiExpress,      color: '#f5f5f7' },
-  api:        { Icon: Globe,          color: '#00f5ff' },
-  postgresql: { Icon: SiPostgresql,   color: '#4169e1' },
-  mongodb:    { Icon: SiMongodb,      color: '#47a248' },
-  supabase:   { Icon: SiSupabase,     color: '#3ecf8e' },
-  git:        { Icon: SiGit,          color: '#f05033' },
-  docker:     { Icon: SiDocker,       color: '#2496ed' },
-  figma:      { Icon: SiFigma,        color: '#a259ff' },
-  chatgpt:    { Icon: SiOpenai,       color: '#10a37f' },
-  claude:     { Icon: Sparkles,       color: '#d97757' },
-  copilot:    { Icon: SiGithub,       color: '#f5f5f7' },
-  gemini:     { Icon: SiGoogle,       color: '#4285f4' },
+  react:      { Icon: SiReact,        color: MONO },
+  typescript: { Icon: SiTypescript,   color: MONO },
+  nextjs:     { Icon: SiNextdotjs,    color: MONO },
+  tailwind:   { Icon: SiTailwindcss,  color: MONO },
+  nuxt:       { Icon: SiNuxt,         color: MONO },
+  nodejs:     { Icon: SiNodedotjs,    color: MONO },
+  express:    { Icon: SiExpress,      color: MONO },
+  api:        { Icon: Globe,          color: MONO },
+  postgresql: { Icon: SiPostgresql,   color: MONO },
+  mongodb:    { Icon: SiMongodb,      color: MONO },
+  supabase:   { Icon: SiSupabase,     color: MONO },
+  git:        { Icon: SiGit,          color: MONO },
+  docker:     { Icon: SiDocker,       color: MONO },
+  figma:      { Icon: SiFigma,        color: MONO },
+  chatgpt:    { Icon: SiOpenai,       color: MONO },
+  claude:     { Icon: Sparkles,       color: MONO },
+  copilot:    { Icon: SiGithub,       color: MONO },
+  gemini:     { Icon: SiGoogle,       color: MONO },
 };
 
-const FALLBACK_ICON: IconMeta = { Icon: Code2, color: '#f5f5f7' };
+const FALLBACK_ICON: IconMeta = { Icon: Code2, color: MONO };
 
 const SKILLS = ALL_SKILLS
   .filter((s) => s.category !== 'Soft Skill')
@@ -94,7 +96,7 @@ export function Hero() {
             className="lg:col-span-6 border-t border-rule/70 pt-6">
             <p className="text-lg md:text-xl text-ink/80 leading-relaxed max-w-xl">
               I craft <span className="text-primary">complete</span> web experiences, focusing on{' '}
-              <span className="text-accent">clean code</span>, functional design, and delivering highly stable applications.
+              <span className="text-ink">clean code</span>, functional design, and delivering highly stable applications.
             </p>
             <p className="mt-4 text-sm text-muted font-mono">
               // {PROFILE.role}
@@ -126,7 +128,7 @@ export function Hero() {
           >
             <a
               href="#projects"
-              className="group inline-flex items-center justify-between gap-3 px-5 py-3 rounded-full bg-primary text-background font-semibold text-sm hover:shadow-[0_0_30px_rgb(var(--primary)/0.55)] transition-shadow"
+              className="group inline-flex items-center justify-between gap-3 px-5 py-3 rounded-full bg-ink text-background font-semibold text-sm hover:bg-primary transition-colors"
             >
               View my work
               <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
@@ -183,7 +185,7 @@ export function Hero() {
                     <span className="font-display font-semibold text-lg md:text-xl tracking-tight text-ink/70 group-hover:text-ink transition-colors">
                       {name}
                     </span>
-                    <span className="text-primary text-2xl select-none ml-10 md:ml-14" aria-hidden>
+                    <span className="text-muted/60 text-2xl select-none ml-10 md:ml-14" aria-hidden>
                       /
                     </span>
                   </div>

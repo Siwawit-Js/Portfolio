@@ -58,7 +58,7 @@ export function Projects() {
               transition={{ duration: 0.7 }}
               className="font-display font-bold text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-tight text-ink"
             >
-              Things I've <span className="text-gradient">built</span>.
+              Things I've <span className="text-primary">built</span>.
             </motion.h2>
 
             <motion.p
@@ -93,14 +93,14 @@ export function Projects() {
                     'relative px-4 py-2 rounded-full text-xs font-mono uppercase tracking-[0.16em] transition-all',
                     active
                       ? 'text-background'
-                      : 'text-ink/70 hover:text-ink border border-rule hover:border-primary/40',
+                      : 'text-ink/70 hover:text-ink border border-rule hover:border-ink/40',
                   ].join(' ')}
                 >
                   {active && (
                     <motion.span
                       layoutId="active-filter-pill"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.55 }}
-                      className="absolute inset-0 rounded-full bg-primary shadow-[0_0_24px_rgb(var(--primary)/0.55)]"
+                      className="absolute inset-0 rounded-full bg-ink"
                     />
                   )}
                   <span className="relative z-10 inline-flex items-center gap-2">
@@ -154,13 +154,13 @@ export function Projects() {
                   <div className="scanlines absolute inset-0 opacity-60" />
 
                   {/* Category */}
-                  <span className="absolute top-4 left-4 glass inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.18em] text-primary">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgb(var(--primary))]" />
+                  <span className="absolute top-4 left-4 glass inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.18em] text-ink/80">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                     {CATEGORY_LABEL[project.category]}
                   </span>
 
                   {/* Arrow CTA */}
-                  <span className="absolute top-4 right-4 grid place-items-center w-10 h-10 rounded-full glass text-ink transition-all duration-300 group-hover:bg-primary group-hover:text-background group-hover:rotate-45">
+                  <span className="absolute top-4 right-4 grid place-items-center w-10 h-10 rounded-full glass text-ink transition-all duration-300 group-hover:bg-ink group-hover:text-background group-hover:rotate-45">
                     <ArrowUpRight size={16} />
                   </span>
                 </div>
@@ -168,7 +168,7 @@ export function Projects() {
                 {/* Body */}
                 <div className="p-6">
                   <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="font-display font-semibold text-2xl tracking-tight text-ink group-hover:text-primary transition-colors">
+                    <h3 className="font-display font-semibold text-2xl tracking-tight text-ink group-hover:text-primary transition-colors duration-300">
                       {project.title}
                     </h3>
                     <span className="font-mono text-[11px] text-muted tabular-nums">

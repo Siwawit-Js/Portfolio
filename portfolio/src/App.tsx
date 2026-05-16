@@ -9,24 +9,19 @@ import { Contact } from './sections/Contact';
 
 export default function App() {
   return (
-    <div className="relative min-h-screen bg-background text-ink font-sans selection:bg-primary/30 selection:text-ink overflow-hidden">
-      {/* Layered background: grid + mesh blobs + grain */}
-      <div className="fixed inset-0 pointer-events-none z-0 bg-grid opacity-60" />
+    <div className="relative min-h-screen bg-background text-ink font-sans selection:bg-primary/20 selection:text-ink overflow-hidden">
+      {/* Subtle grid */}
+      <div className="fixed inset-0 pointer-events-none z-0 bg-grid opacity-40" />
 
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="mesh-blob mesh-cyan w-[700px] h-[700px] -top-[20%] -right-[10%]" />
-        <div className="mesh-blob mesh-magenta w-[600px] h-[600px] top-[40%] -left-[10%]" />
-        <div className="mesh-blob mesh-violet w-[800px] h-[800px] -bottom-[20%] right-[10%]" />
-      </div>
+      {/* Neutral grain */}
+      <div className="fixed inset-0 pointer-events-none z-0 bg-grain opacity-40 mix-blend-overlay" />
 
-      <div className="fixed inset-0 pointer-events-none z-0 bg-grain opacity-50 mix-blend-overlay" />
-
-      {/* Vignette */}
+      {/* Soft vignette */}
       <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{
           background:
-            'radial-gradient(ellipse at center, transparent 40%, rgb(var(--background) / 0.85) 100%)',
+            'radial-gradient(ellipse at center, transparent 55%, rgb(var(--background) / 0.7) 100%)',
         }}
       />
 
