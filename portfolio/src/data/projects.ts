@@ -4,7 +4,9 @@ export const PROJECTS: Project[] = [
   {
     id: 'p-1',
     title: 'Galaxy Portfolio',
-    description: 'A cosmic-themed personal portfolio built with React, TypeScript and Tailwind CSS, featuring a starfield background and smooth animations.',
+    description:
+      'A cosmic-themed personal portfolio built with React, TypeScript and Tailwind CSS, featuring a starfield background and smooth animations.',
+    category: 'web',
     image_url: 'https://picsum.photos/seed/galaxy-portfolio/1200/900',
     images: [],
     tech_stack: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
@@ -17,7 +19,9 @@ export const PROJECTS: Project[] = [
   {
     id: 'p-2',
     title: 'Task Management App',
-    description: 'A full-stack task management application with drag-and-drop kanban boards, real-time collaboration, and team workspaces.',
+    description:
+      'A full-stack task management application with drag-and-drop kanban boards, real-time collaboration, and team workspaces.',
+    category: 'web',
     image_url: 'https://picsum.photos/seed/kanban-board/1200/900',
     images: [],
     tech_stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'WebSockets'],
@@ -30,7 +34,9 @@ export const PROJECTS: Project[] = [
   {
     id: 'p-3',
     title: 'E-Commerce Platform',
-    description: 'Modern e-commerce solution with cart, checkout, payment integration, and an admin dashboard for inventory management.',
+    description:
+      'Modern e-commerce solution with cart, checkout, payment integration, and an admin dashboard for inventory management.',
+    category: 'web',
     image_url: 'https://picsum.photos/seed/commerce-shop/1200/900',
     images: [],
     tech_stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Stripe'],
@@ -43,7 +49,9 @@ export const PROJECTS: Project[] = [
   {
     id: 'p-4',
     title: 'Weather Dashboard',
-    description: 'A clean weather dashboard that aggregates forecasts from multiple APIs with beautiful charts and location-based recommendations.',
+    description:
+      'A clean weather dashboard that aggregates forecasts from multiple APIs with beautiful charts and location-based recommendations.',
+    category: 'web',
     image_url: 'https://picsum.photos/seed/weather-clouds/1200/900',
     images: [],
     tech_stack: ['React', 'TypeScript', 'Chart.js', 'OpenWeather API'],

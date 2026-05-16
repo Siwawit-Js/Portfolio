@@ -19,10 +19,13 @@ export interface Profile {
   updated_at: string;
 }
 
+export type ProjectCategory = 'web' | 'uiux' | 'mobile';
+
 export interface Project {
   id: string;
   title: string;
   description: string | null;
+  category: ProjectCategory;
   image_url: string | null;
   images: string[];
   tech_stack: string[];

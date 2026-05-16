@@ -1,101 +1,197 @@
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { FaBehance, FaLinkedin, FaDribbble, FaStar } from 'react-icons/fa';
+import type { ComponentType, CSSProperties } from 'react';
+import { ArrowDown, Globe, Sparkles, Code2 } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import {
+  SiReact,
+  SiTypescript,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiNuxt,
+  SiNodedotjs,
+  SiExpress,
+  SiPostgresql,
+  SiMongodb,
+  SiSupabase,
+  SiGit,
+  SiDocker,
+  SiFigma,
+  SiOpenai,
+  SiGoogle,
+  SiGithub,
+} from 'react-icons/si';
+import { PROFILE } from '../data/profile';
+import { PROJECTS } from '../data/projects';
+import { SKILLS as ALL_SKILLS } from '../data/skills';
+
+type IconCmp = ComponentType<{ size?: number | string; className?: string; style?: CSSProperties }>;
+
+interface IconMeta {
+  Icon: IconCmp;
+  color: string;
+}
+
+const ICONS: Record<string, IconMeta> = {
+  react:      { Icon: SiReact,        color: '#61dafb' },
+  typescript: { Icon: SiTypescript,   color: '#3178c6' },
+  nextjs:     { Icon: SiNextdotjs,    color: '#f5f5f7' },
+  tailwind:   { Icon: SiTailwindcss,  color: '#38bdf8' },
+  nuxt:       { Icon: SiNuxt,         color: '#00dc82' },
+  nodejs:     { Icon: SiNodedotjs,    color: '#5fa04e' },
+  express:    { Icon: SiExpress,      color: '#f5f5f7' },
+  api:        { Icon: Globe,          color: '#00f5ff' },
+  postgresql: { Icon: SiPostgresql,   color: '#4169e1' },
+  mongodb:    { Icon: SiMongodb,      color: '#47a248' },
+  supabase:   { Icon: SiSupabase,     color: '#3ecf8e' },
+  git:        { Icon: SiGit,          color: '#f05033' },
+  docker:     { Icon: SiDocker,       color: '#2496ed' },
+  figma:      { Icon: SiFigma,        color: '#a259ff' },
+  chatgpt:    { Icon: SiOpenai,       color: '#10a37f' },
+  claude:     { Icon: Sparkles,       color: '#d97757' },
+  copilot:    { Icon: SiGithub,       color: '#f5f5f7' },
+  gemini:     { Icon: SiGoogle,       color: '#4285f4' },
+};
+
+const FALLBACK_ICON: IconMeta = { Icon: Code2, color: '#f5f5f7' };
+
+const SKILLS = ALL_SKILLS
+  .filter((s) => s.category !== 'Soft Skill')
+  .map((s) => {
+    const meta = ICONS[s.icon ?? ''] ?? FALLBACK_ICON;
+    return { name: s.name, Icon: meta.Icon, color: meta.color };
+  });
 
 export function Hero() {
   return (
-    <section id="top" className="relative min-h-screen px-6 pt-32 pb-16 md:px-12 md:pt-40 lg:px-20 flex flex-col justify-center">
-      <div className="mx-auto w-full max-w-[1200px]">
-        
-        {/* Main Title Area */}
-        <div className="text-center md:text-left flex flex-col items-center md:items-start mb-16 md:mb-24 relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display font-medium text-[clamp(4rem,10vw,8.5rem)] leading-[0.9] tracking-tight text-ink w-full"
-          >
-            <div className="md:pl-20">Digital – Visual</div>
-            <div>Designer</div>
-          </motion.h1>
-        </div>
+    <section
+      id="top"
+      className="relative min-h-screen px-6 pt-32 pb-20 md:px-12 md:pt-40 lg:px-20 flex flex-col justify-center overflow-hidden"
+    >
 
-        {/* Content Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-6 mt-8">
-          
-          {/* Left / Middle: Description */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="col-span-1 md:col-span-6 flex flex-col justify-end border-t border-rule/50 pt-8 relative"
-          >
-            <div className="flex items-start gap-4 max-w-md">
-              <div className="mt-1.5 shrink-0 text-muted/50">
-                <ArrowRight size={20} strokeWidth={1} />
-              </div>
-              <p className="text-lg md:text-xl font-medium text-ink/80 leading-relaxed">
-                Specialized in Web Design, UX /UI, Webflow, and Front End Development.
-              </p>
-            </div>
-          </motion.div>
+      <div className="mx-auto w-full max-w-[1280px] relative z-10">
 
-          {/* Right: Big Numbers */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="col-span-1 md:col-span-6 flex flex-col items-start md:items-end justify-end border-t border-rule/50 pt-8"
-          >
-            <div className="max-w-[280px]">
-              <p className="text-muted text-sm md:text-base leading-relaxed mb-2">
-                Creative masterpieces delivered in the last 8 years
-              </p>
-              <div className="font-display font-bold text-7xl md:text-8xl tracking-tighter text-ink flex items-end">
-                50<span className="text-[0.7em]">+</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Footer / Trust Row */}
+        {/* Greeting line */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 items-center"
-        >
-          {/* Trust Rating */}
-          <div className="flex items-center gap-3">
-            <div className="flex text-amber-400">
-              <FaStar size={18} />
-            </div>
-            <div>
-              <div className="font-bold text-ink">4.8</div>
-              <div className="text-xs text-muted">from 150,000+ Reviews</div>
-            </div>
-          </div>
-
-          {/* Trustpilot Logo Mock */}
-          <div className="flex items-center justify-start md:justify-center gap-2">
-            <div className="flex gap-1 text-emerald-500">
-              {[1, 2, 3, 4, 5].map(i => <div key={i} className="bg-emerald-500 text-white p-1 rounded-sm"><FaStar size={12}/></div>)}
-            </div>
-            <span className="font-bold text-sm">Trustpilot</span>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex items-center justify-start md:justify-end gap-6 text-ink">
-            <a href="#" className="hover:text-primary transition-colors"><FaDribbble size={22} /></a>
-            <a href="#" className="hover:text-primary transition-colors"><FaBehance size={22} /></a>
-            <a href="#" className="hover:text-primary transition-colors"><FaLinkedin size={22} /></a>
-            <div className="flex gap-0.5 opacity-50 ml-2">
-              <div className="w-3 h-3 bg-ink rounded-full"></div>
-              <div className="w-1.5 h-3 bg-ink rounded-full"></div>
-            </div>
-          </div>
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="font-mono text-sm md:text-base text-muted mb-4 flex items-center gap-2">
+          <span>Hello, I'm</span>
+          <span className="text-ink font-semibold">{PROFILE.name.split(' ')[0]}</span>
         </motion.div>
 
+        <h1 className="font-display font-bold text-[clamp(3rem,11vw,9rem)] leading-[0.92] tracking-tighter text-ink">
+          Portfolio
+        </h1>
+
+        {/* Bottom row: bio + stats + CTA */}
+        <div className="mt-6 md:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8">
+          {/* Bio */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
+            className="lg:col-span-6 border-t border-rule/70 pt-6">
+            <p className="text-lg md:text-xl text-ink/80 leading-relaxed max-w-xl">
+              I craft <span className="text-primary">complete</span> web experiences, focusing on{' '}
+              <span className="text-accent">clean code</span>, functional design, and delivering highly stable applications.
+            </p>
+            <p className="mt-4 text-sm text-muted font-mono">
+              // {PROFILE.role}
+            </p>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.8 }}
+            className="lg:col-span-3 border-t border-rule/70 pt-6"
+          >
+            <div className="font-display font-bold text-6xl md:text-7xl text-ink leading-none flex items-start">
+              {PROJECTS.length}
+              <span className="text-2xl mt-2 ml-1 text-primary">+</span>
+            </div>
+            <div className="mt-3 text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
+              Projects shipped<br />across the stack
+            </div>
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.9 }}
+            className="lg:col-span-3 border-t border-rule/70 pt-6 flex flex-col gap-3"
+          >
+            <a
+              href="#projects"
+              className="group inline-flex items-center justify-between gap-3 px-5 py-3 rounded-full bg-primary text-background font-semibold text-sm hover:shadow-[0_0_30px_rgb(var(--primary)/0.55)] transition-shadow"
+            >
+              View my work
+              <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
+            </a>
+            <div className="flex gap-2">
+              {PROFILE.github && (
+                <a
+                  href={PROFILE.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="GitHub"
+                  className="grid place-items-center w-11 h-11 rounded-full border border-rule text-ink hover:border-primary hover:text-primary transition-colors"
+                >
+                  <FaGithub size={16} />
+                </a>
+              )}
+              {PROFILE.linkedin && (
+                <a
+                  href={PROFILE.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                  className="grid place-items-center w-11 h-11 rounded-full border border-rule text-ink hover:border-primary hover:text-primary transition-colors"
+                >
+                  <FaLinkedin size={16} />
+                </a>
+              )}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Scrolling marquee */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="mt-20 md:mt-28 border-y border-rule/70 py-5 overflow-hidden"
+          aria-hidden
+        >
+          <div className="marquee-track gap-10 md:gap-14 text-ink/80">
+            {Array.from({ length: 2 }).map((_, dup) => (
+              <div key={dup} className="flex items-center gap-10 md:gap-14 pr-10 md:pr-14">
+                {SKILLS.map(({ name, Icon, color }) => (
+                  <div
+                    key={`${dup}-${name}`}
+                    className="group flex items-center gap-3 shrink-0"
+                    title={name}
+                  >
+                    <Icon
+                      size={28}
+                      className="transition-transform duration-300 group-hover:scale-110"
+                      style={{ color }}
+                    />
+                    <span className="font-display font-semibold text-lg md:text-xl tracking-tight text-ink/70 group-hover:text-ink transition-colors">
+                      {name}
+                    </span>
+                    <span className="text-primary text-2xl select-none ml-10 md:ml-14" aria-hidden>
+                      /
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

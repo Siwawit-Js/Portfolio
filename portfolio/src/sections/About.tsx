@@ -1,127 +1,151 @@
 import { motion } from 'framer-motion';
-import { EXPERIENCE } from '../data/experience';
+import { Code2, Coffee, Sparkles } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 
+const HIGHLIGHTS = [
+  { Icon: Code2, label: 'Languages', value: 'TS, JS, Python, SQL' },
+  { Icon: Sparkles, label: 'Focus', value: 'Web · UI · Tests' },
+  { Icon: Coffee, label: 'Fuel', value: 'Tea · Movies · Music' },
+];
+
 export function About() {
-  const experiences = [...EXPERIENCE].sort((a, b) => (a.start_date > b.start_date ? -1 : 1));
+  const bioLines = (PROFILE.about ?? '').split('\n').filter(Boolean);
 
   return (
-    <section id="about" className="relative px-6 py-24 md:px-12 md:py-32 lg:px-20 bg-background z-10">
-      <div className="mx-auto w-full max-w-[1000px]">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-          {/* Left Column (Pill + Intro) */}
-          <div className="lg:col-span-12">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+    <section
+      id="about"
+      className="relative px-6 py-28 md:px-12 md:py-36 lg:px-20 z-10"
+    >
+      <div className="mx-auto w-full max-w-[1280px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left: sticky label + portrait */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block border border-primary/40 rounded-full px-5 py-2 text-sm font-medium text-ink mb-10 bg-white/50 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full glass text-[11px] font-mono uppercase tracking-[0.22em] text-primary"
             >
-              About Me
+              02 / About Me
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="relative card-neon neon-ring rounded-3xl overflow-hidden aspect-[4/5] max-w-sm"
+            >
+              {PROFILE.avatar_url ? (
+                <img
+                  src={PROFILE.avatar_url}
+                  alt={PROFILE.name}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 grid place-items-center bg-surface-2 text-muted">
+                  <span className="font-display text-7xl">
+                    {PROFILE.name.charAt(0)}
+                  </span>
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+              <div className="scanlines absolute inset-0 opacity-60" />
+
+              {/* Bottom tag */}
+              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                <div>
+                  <div className="font-display font-semibold text-xl text-ink">
+                    {PROFILE.name}
+                  </div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary mt-1">
+                    Bangkok · Thailand
+                  </div>
+                </div>
+                <div className="glass rounded-full px-3 py-1 flex items-center gap-2">
+                  <span className="live-dot" />
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-ink/80">
+                    Online
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right: copy + grid of highlights */}
+          <div className="lg:col-span-7">
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-display font-medium text-[clamp(3rem,6vw,5.5rem)] leading-[1.05] tracking-tight text-ink mb-8 max-w-2xl"
+              transition={{ duration: 0.7 }}
+              className="font-display font-bold text-[clamp(2.25rem,5.5vw,4.75rem)] leading-[0.98] tracking-tight text-ink"
             >
-              Driven - And<br />Adaptable
+              Curious by nature.<br />
+              <span className="text-gradient">Builder</span> by choice.
             </motion.h2>
 
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            <div className="mt-8 space-y-5 max-w-2xl">
+              {bioLines.length > 0 ? (
+                bioLines.map((line, i) => (
+                  <motion.p
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    className="text-base md:text-lg text-ink/75 leading-relaxed"
+                  >
+                    {line}
+                  </motion.p>
+                ))
+              ) : (
+                <p className="text-ink/75 leading-relaxed">{PROFILE.bio}</p>
+              )}
+            </div>
+
+            {/* Highlights grid */}
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {HIGHLIGHTS.map(({ Icon, label, value }, i) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.08 }}
+                  className="card-neon p-5 rounded-2xl"
+                >
+                  <Icon size={18} className="text-primary mb-3" />
+                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                    {label}
+                  </div>
+                  <div className="mt-1 font-display font-semibold text-ink text-lg">
+                    {value}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Inline stats strip */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-xl md:text-2xl font-medium text-ink/80 leading-relaxed max-w-2xl"
+              className="mt-10 grid grid-cols-3 gap-6 border-t border-rule pt-8"
             >
-              <span className="text-ink font-semibold">Passionate about creating seamless user experiences.</span>{' '}
-              <span className="text-muted/80">Over {PROFILE.stats?.find(s => s.label.includes('Exp'))?.value || '8'} years in the digital design world. Expert in full-stack development</span>
-            </motion.p>
-          </div>
-        </div>
-
-        {/* Stats Row */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-12 max-w-2xl border-b border-rule/50 pb-20">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex font-display font-bold text-6xl md:text-7xl tracking-tighter text-ink mb-3">
-              <span className="text-3xl mt-2 font-normal">+</span>40
-            </div>
-            <div className="text-sm font-semibold tracking-widest text-muted uppercase">Total Projects<br/>Completed</div>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <div className="flex font-display font-bold text-6xl md:text-7xl tracking-tighter text-ink mb-3">
-              <span className="text-3xl mt-2 font-normal">+</span>15
-            </div>
-            <div className="text-sm font-semibold tracking-widest text-muted uppercase">Years Of<br/>Experience</div>
-          </motion.div>
-        </div>
-
-        {/* Professional Journey */}
-        <div className="mt-20">
-          <motion.h3 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xl font-medium text-muted mb-10"
-          >
-            My professional journey
-          </motion.h3>
-
-          <div className="flex flex-col">
-            {experiences.map((exp, i) => (
-              <motion.div 
-                key={exp.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-rule/50 hover:bg-surface/30 transition-colors px-4 -mx-4 rounded-xl"
-              >
-                <div className="flex items-start md:items-center gap-6 md:gap-12 w-full md:w-auto mb-4 md:mb-0">
-                  <span className="font-medium text-lg text-ink w-8">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <div>
-                    <h4 className="font-semibold text-2xl text-ink group-hover:text-primary transition-colors">
-                      {exp.title}
-                    </h4>
-                    <span className="text-muted text-sm mt-1 block">
-                      ({exp.start_date.substring(0, 4)} - {exp.is_current ? 'Present' : exp.end_date?.substring(0, 4) || 'Present'})
-                    </span>
+              {(PROFILE.stats ?? []).map((s) => (
+                <div key={s.label}>
+                  <div className="font-display font-bold text-3xl md:text-4xl text-ink tracking-tight">
+                    {s.value}
+                  </div>
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                    {s.label}
                   </div>
                 </div>
-                
-                <div className="flex items-center justify-between md:justify-end w-full md:w-auto ml-14 md:ml-0 gap-6">
-                  {/* Mock thumbnail images as seen in the screenshot */}
-                  <div className="hidden md:flex gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
-                    <div className="w-20 h-14 bg-rule rounded-md overflow-hidden shadow-sm">
-                      <img src={`https://picsum.photos/seed/${exp.id}1/200/100`} className="w-full h-full object-cover opacity-80" alt="Work sample" />
-                    </div>
-                    <div className="w-20 h-14 bg-rule rounded-md overflow-hidden shadow-sm">
-                      <img src={`https://picsum.photos/seed/${exp.id}2/200/100`} className="w-full h-full object-cover opacity-80" alt="Work sample" />
-                    </div>
-                  </div>
-                  <span className="font-medium text-muted whitespace-nowrap text-right">
-                    {exp.company}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+              ))}
+            </motion.div>
           </div>
         </div>
-
       </div>
     </section>
   );

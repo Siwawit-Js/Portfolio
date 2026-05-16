@@ -24,6 +24,7 @@ export const SKILLS: Skill[] = [
 
   // Hard Skills — Design
   { id: 'hs-11', name: 'Figma', category: 'Design', icon: 'figma', proficiency: 75, sort_order: 11 },
+  { id: 'hs-17', name: 'Canva', category: 'Design', icon: 'canva', proficiency: 95, sort_order: 17 },
 
   // Hard Skills — AI Tools
   { id: 'hs-13', name: 'ChatGPT', category: 'AI Tools', icon: 'chatgpt', proficiency: 90, sort_order: 13 },
@@ -37,6 +38,5 @@ export const SKILLS: Skill[] = [
   { id: 'ss-3', name: 'Problem Solving', category: 'Soft Skill', icon: 'problem-solving', proficiency: 90, sort_order: 3 },
   { id: 'ss-4', name: 'Time Management', category: 'Soft Skill', icon: 'time-management', proficiency: 85, sort_order: 4 },
   { id: 'ss-5', name: 'Adaptability', category: 'Soft Skill', icon: 'adaptability', proficiency: 90, sort_order: 5 },
-  { id: 'ss-6', name: 'Creativity', category: 'Soft Skill', icon: 'creativity', proficiency: 85, sort_order: 6 },
   { id: 'ss-7', name: 'Critical Thinking', category: 'Soft Skill', icon: 'critical-thinking', proficiency: 85, sort_order: 7 },
 ];

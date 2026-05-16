@@ -10,7 +10,7 @@ export const PROFILE: Profile = {
   resume_url: null,
   email: 'siwawitwork@gmail.com',
   github: 'https://github.com/Siwawit-Js',
-  linkedin: 'https://linkedin.com/in/siwawit',
+  linkedin: 'https://www.linkedin.com/in/siwawit-jitkusolpasuk-97486a384',
   facebook: null,
   stats: [
     { label: 'Projects', value: '10+' },
