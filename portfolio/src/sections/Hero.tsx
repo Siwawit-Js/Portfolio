@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import type { ComponentType, CSSProperties } from 'react';
-import { ArrowDown, Globe, Sparkles, Code2 } from 'lucide-react';
+import { ArrowDown, Globe, Code2, Rocket } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import {
   SiReact,
@@ -19,7 +19,17 @@ import {
   SiOpenai,
   SiGoogle,
   SiGithub,
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiSharp,
+  SiDotnet,
+  SiCanva,
+  SiClaude,
+  SiDiagramsdotnet,
+  SiStrapi,
 } from 'react-icons/si';
+import { TbBrandVscode } from 'react-icons/tb';
 import { PROFILE } from '../data/profile';
 import { PROJECTS } from '../data/projects';
 import { SKILLS as ALL_SKILLS } from '../data/skills';
@@ -34,24 +44,34 @@ interface IconMeta {
 const MONO = '#E8E6E2';
 
 const ICONS: Record<string, IconMeta> = {
-  react:      { Icon: SiReact,        color: MONO },
+  html:       { Icon: SiHtml5,        color: MONO },
+  css:        { Icon: SiCss,          color: MONO },
+  javascript: { Icon: SiJavascript,   color: MONO },
   typescript: { Icon: SiTypescript,   color: MONO },
+  react:      { Icon: SiReact,        color: MONO },
   nextjs:     { Icon: SiNextdotjs,    color: MONO },
-  tailwind:   { Icon: SiTailwindcss,  color: MONO },
   nuxt:       { Icon: SiNuxt,         color: MONO },
-  nodejs:     { Icon: SiNodedotjs,    color: MONO },
-  express:    { Icon: SiExpress,      color: MONO },
-  api:        { Icon: Globe,          color: MONO },
-  postgresql: { Icon: SiPostgresql,   color: MONO },
-  mongodb:    { Icon: SiMongodb,      color: MONO },
-  supabase:   { Icon: SiSupabase,     color: MONO },
-  git:        { Icon: SiGit,          color: MONO },
-  docker:     { Icon: SiDocker,       color: MONO },
-  figma:      { Icon: SiFigma,        color: MONO },
-  chatgpt:    { Icon: SiOpenai,       color: MONO },
-  claude:     { Icon: Sparkles,       color: MONO },
-  copilot:    { Icon: SiGithub,       color: MONO },
-  gemini:     { Icon: SiGoogle,       color: MONO },
+  tailwind:   { Icon: SiTailwindcss,  color: MONO },
+  csharp:     { Icon: SiSharp,         color: MONO },
+  aspnetcore: { Icon: SiDotnet,        color: MONO },
+  nodejs:     { Icon: SiNodedotjs,     color: MONO },
+  express:    { Icon: SiExpress,       color: MONO },
+  strapi:     { Icon: SiStrapi,        color: MONO },
+  api:        { Icon: Globe,           color: MONO },
+  postgresql: { Icon: SiPostgresql,    color: MONO },
+  mongodb:    { Icon: SiMongodb,       color: MONO },
+  supabase:   { Icon: SiSupabase,      color: MONO },
+  git:        { Icon: SiGit,           color: MONO },
+  vscode:     { Icon: TbBrandVscode,   color: MONO },
+  docker:     { Icon: SiDocker,        color: MONO },
+  figma:      { Icon: SiFigma,         color: MONO },
+  canva:      { Icon: SiCanva,         color: MONO },
+  drawio:     { Icon: SiDiagramsdotnet, color: MONO },
+  chatgpt:    { Icon: SiOpenai,        color: MONO },
+  claude:     { Icon: SiClaude,        color: MONO },
+  copilot:    { Icon: SiGithub,        color: MONO },
+  gemini:     { Icon: SiGoogle,        color: MONO },
+  antigravity:{ Icon: Rocket,          color: MONO },
 };
 
 const FALLBACK_ICON: IconMeta = { Icon: Code2, color: MONO };
@@ -165,7 +185,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className="mt-20 md:mt-28 border-y border-rule/70 py-5 overflow-hidden"
+          className="mt-20 md:mt-28 border-y border-rule/70 py-5 overflow-hidden marquee-mask"
           aria-hidden
         >
           <div className="marquee-track gap-10 md:gap-14 text-ink/80">

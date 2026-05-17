@@ -137,20 +137,37 @@ export function Projects() {
                 aria-label={`Open project ${project.title}`}
               >
                 {/* Image */}
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className="relative aspect-[16/10] overflow-hidden bg-surface-2">
                   {project.image_url ? (
-                    <img
-                      src={project.image_url}
-                      alt={project.title}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+                    /\.(mp4|webm|ogg)$/i.test(project.image_url) ? (
+                      <video
+                        src={project.image_url}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        className="absolute inset-0 w-full h-full object-cover bg-black transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <img
+                        src={project.image_url}
+                        alt={project.title}
+                        loading="lazy"
+                        className={[
+                          'absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105',
+                          project.category === 'mobile' || project.id === 'p-5'
+                            ? 'object-contain p-4'
+                            : 'object-cover',
+                        ].join(' ')}
+                      />
+                    )
                   ) : (
-                    <div className="absolute inset-0 bg-surface-2 grid place-items-center text-4xl font-display text-muted">
+                    <div className="absolute inset-0 grid place-items-center text-4xl font-display text-muted">
                       {project.title.charAt(0)}
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent pointer-events-none" />
                   <div className="scanlines absolute inset-0 opacity-60" />
 
                   {/* Category */}
@@ -176,9 +193,9 @@ export function Projects() {
                     </span>
                   </div>
 
-                  {project.description && (
+                  {(project.short_description ?? project.description) && (
                     <p className="mt-3 text-sm md:text-[15px] leading-relaxed text-ink/65 line-clamp-2">
-                      {project.description}
+                      {project.short_description ?? project.description}
                     </p>
                   )}
 

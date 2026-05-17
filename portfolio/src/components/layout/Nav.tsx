@@ -40,7 +40,7 @@ export function Nav() {
             <span className="font-display font-bold text-lg text-ink">S</span>
           </div>
           <span className="font-display font-bold text-lg tracking-tight text-ink">
-            siwawit<span className="text-primary">.dev</span>
+            Portfolio
           </span>
         </a>
 
@@ -58,23 +58,15 @@ export function Nav() {
           ))}
         </ul>
 
-        {/* Right CTA */}
-        <div className="flex items-center gap-3">
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-ink text-background font-semibold text-xs uppercase tracking-wider hover:bg-primary transition-colors"
-          >
-            Hire Me
-          </a>
-          <button
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="md:hidden grid place-items-center w-10 h-10 rounded-full glass text-ink hover:text-primary transition-colors"
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </div>
+        {/* Mobile menu toggle */}
+        <button
+          aria-label="Toggle menu"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className="md:hidden grid place-items-center w-10 h-10 rounded-full glass text-ink hover:text-primary transition-colors"
+        >
+          {open ? <X size={18} /> : <Menu size={18} />}
+        </button>
       </nav>
 
       {/* Mobile menu */}
@@ -104,15 +96,6 @@ export function Nav() {
                   </a>
                 </motion.li>
               ))}
-              <li className="mt-2">
-                <a
-                  href="#contact"
-                  onClick={() => setOpen(false)}
-                  className="block text-center py-3 rounded-xl bg-ink text-background font-semibold text-xs uppercase tracking-wider"
-                >
-                  Hire Me
-                </a>
-              </li>
             </ul>
           </motion.div>
         )}

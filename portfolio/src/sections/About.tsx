@@ -1,12 +1,5 @@
 import { motion } from 'framer-motion';
-import { Code2, Coffee, Sparkles } from 'lucide-react';
 import { PROFILE } from '../data/profile';
-
-const HIGHLIGHTS = [
-  { Icon: Code2, label: 'Languages', value: 'TS, JS, Python, SQL' },
-  { Icon: Sparkles, label: 'Focus', value: 'Web · UI · Tests' },
-  { Icon: Coffee, label: 'Fuel', value: 'Tea · Movies · Music' },
-];
 
 export function About() {
   const bioLines = (PROFILE.about ?? '').split('\n').filter(Boolean);
@@ -81,8 +74,8 @@ export function About() {
               transition={{ duration: 0.7 }}
               className="font-display font-bold text-[clamp(2.25rem,5.5vw,4.75rem)] leading-[0.98] tracking-tight text-ink"
             >
-              Curious by nature.<br />
-              <span className="text-primary">Builder</span> by choice.
+              Web<br />
+              <span className="text-primary ml-20">Developer</span>.
             </motion.h2>
 
             <div className="mt-8 space-y-5 max-w-2xl">
@@ -104,46 +97,26 @@ export function About() {
               )}
             </div>
 
-            {/* Highlights grid */}
+            {/* Stats grid */}
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {HIGHLIGHTS.map(({ Icon, label, value }, i) => (
+              {(PROFILE.stats ?? []).map((s, i) => (
                 <motion.div
-                  key={label}
+                  key={s.label}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + i * 0.08 }}
                   className="card-neon p-5 rounded-2xl"
                 >
-                  <Icon size={18} className="text-primary mb-3" />
-                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-                    {label}
+                  <div className="font-display font-bold text-4xl md:text-5xl text-ink tracking-tight leading-none">
+                    {s.value}
                   </div>
-                  <div className="mt-1 font-display font-semibold text-ink text-lg">
-                    {value}
+                  <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                    {s.label}
                   </div>
                 </motion.div>
               ))}
             </div>
-
-            {/* Inline stats strip */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="mt-10 grid grid-cols-3 gap-6 border-t border-rule pt-8"
-            >
-              {(PROFILE.stats ?? []).map((s) => (
-                <div key={s.label}>
-                  <div className="font-display font-bold text-3xl md:text-4xl text-ink tracking-tight">
-                    {s.value}
-                  </div>
-                  <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-                    {s.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
           </div>
         </div>
       </div>

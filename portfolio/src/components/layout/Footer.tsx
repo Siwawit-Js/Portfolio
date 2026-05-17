@@ -12,18 +12,13 @@ export function Footer() {
             <span className="text-primary">.</span>
           </div>
           <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-            Bangkok / Pathum Thani — Thailand
+            — Thailand
           </p>
         </div>
 
-        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted leading-relaxed">
-          Set in Syne &amp; Inter<br />
-          Compiled with React &amp; Tailwind
-        </div>
-
-        <div className="md:text-right font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-          © {year} — every pixel,<br />
-          placed on purpose.
+        <div className="md:col-start-3 md:text-right font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+          © {year} — Create with passion,<br />
+          by Siwawit Junsupaporn
         </div>
       </div>
     </footer>

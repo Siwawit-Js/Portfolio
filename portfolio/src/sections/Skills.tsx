@@ -11,8 +11,8 @@ import {
   Shuffle,
   Palette,
   Globe,
-  Sparkles,
   Code2,
+  Rocket,
 } from 'lucide-react';
 import {
   SiReact,
@@ -31,7 +31,17 @@ import {
   SiOpenai,
   SiGoogle,
   SiGithub,
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiSharp,
+  SiDotnet,
+  SiCanva,
+  SiClaude,
+  SiDiagramsdotnet,
+  SiStrapi,
 } from 'react-icons/si';
+import { TbBrandVscode } from 'react-icons/tb';
 import { SKILLS } from '../data/skills';
 import type { Skill } from '../types';
 
@@ -47,28 +57,38 @@ const GOLD = '#C9A66B';
 
 const ICONS: Record<string, IconMeta> = {
   // Frontend
-  react:      { Icon: SiReact,        color: MONO },
+  html:       { Icon: SiHtml5,        color: MONO },
+  css:        { Icon: SiCss,          color: MONO },
+  javascript: { Icon: SiJavascript,   color: MONO },
   typescript: { Icon: SiTypescript,   color: MONO },
+  react:      { Icon: SiReact,        color: MONO },
   nextjs:     { Icon: SiNextdotjs,    color: MONO },
-  tailwind:   { Icon: SiTailwindcss,  color: MONO },
   nuxt:       { Icon: SiNuxt,         color: MONO },
+  tailwind:   { Icon: SiTailwindcss,  color: MONO },
   // Backend
-  nodejs:     { Icon: SiNodedotjs,    color: MONO },
-  express:    { Icon: SiExpress,      color: MONO },
-  api:        { Icon: Globe,          color: MONO },
+  csharp:     { Icon: SiSharp,         color: MONO },
+  aspnetcore: { Icon: SiDotnet,        color: MONO },
+  nodejs:     { Icon: SiNodedotjs,     color: MONO },
+  express:    { Icon: SiExpress,       color: MONO },
+  strapi:     { Icon: SiStrapi,        color: MONO },
+  api:        { Icon: Globe,           color: MONO },
   // Database
-  postgresql: { Icon: SiPostgresql,   color: MONO },
-  mongodb:    { Icon: SiMongodb,      color: MONO },
-  supabase:   { Icon: SiSupabase,     color: MONO },
+  postgresql: { Icon: SiPostgresql,    color: MONO },
+  mongodb:    { Icon: SiMongodb,       color: MONO },
+  supabase:   { Icon: SiSupabase,      color: MONO },
   // Tools / DevOps / Design
-  git:        { Icon: SiGit,          color: MONO },
-  docker:     { Icon: SiDocker,       color: MONO },
-  figma:      { Icon: SiFigma,        color: MONO },
+  git:        { Icon: SiGit,           color: MONO },
+  vscode:     { Icon: TbBrandVscode,   color: MONO },
+  docker:     { Icon: SiDocker,        color: MONO },
+  figma:      { Icon: SiFigma,         color: MONO },
+  canva:      { Icon: SiCanva,         color: MONO },
+  drawio:     { Icon: SiDiagramsdotnet, color: MONO },
   // AI Tools
-  chatgpt:    { Icon: SiOpenai,       color: MONO },
-  claude:     { Icon: Sparkles,       color: MONO },
-  copilot:    { Icon: SiGithub,       color: MONO },
-  gemini:     { Icon: SiGoogle,       color: MONO },
+  chatgpt:    { Icon: SiOpenai,        color: MONO },
+  claude:     { Icon: SiClaude,        color: MONO },
+  copilot:    { Icon: SiGithub,        color: MONO },
+  gemini:     { Icon: SiGoogle,        color: MONO },
+  antigravity:{ Icon: Rocket,          color: MONO },
   // Soft skills
   'communication':     { Icon: MessageSquare, color: GOLD },
   'teamwork':          { Icon: Users,         color: GOLD },
@@ -162,7 +182,8 @@ export function Skills() {
               transition={{ duration: 0.7 }}
               className="font-display font-bold text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-tight text-ink"
             >
-              My <span className="text-primary">toolbox</span>.
+              Skills, tools,<br />
+              and <span className="text-primary">frameworks</span>.
             </motion.h2>
 
             <motion.p
@@ -172,7 +193,7 @@ export function Skills() {
               transition={{ delay: 0.15 }}
               className="mt-5 text-muted max-w-xl text-base md:text-lg leading-relaxed"
             >
-              Pick a category — see the tools I reach for daily.
+              The languages, frameworks, and apps I reach.
             </motion.p>
           </div>
         </div>

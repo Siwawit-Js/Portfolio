@@ -91,8 +91,8 @@ export function Contact() {
           transition={{ duration: 0.7 }}
           className="font-display font-bold text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tighter text-ink max-w-4xl"
         >
-          Let's build something{' '}
-          <span className="text-primary">extraordinary</span>.
+          Got an idea?{''}
+          <br /><span className="text-primary">Let's talk</span>.
         </motion.h2>
 
         <motion.p
@@ -102,7 +102,7 @@ export function Contact() {
           transition={{ delay: 0.15 }}
           className="mt-6 text-muted text-lg max-w-2xl"
         >
-          Have a project, a role, or just want to say hi? Drop me a message below — I reply within 24 hours.
+          Whether it's a project, a job, or just a hello — my inbox is always open.
         </motion.p>
 
         {/* Contact form */}
@@ -120,7 +120,7 @@ export function Contact() {
               id="contact-name"
               value={name}
               onChange={setName}
-              placeholder="Jane Doe"
+              placeholder="Your name"
               disabled={submitting}
               autoComplete="name"
             />
@@ -130,7 +130,7 @@ export function Contact() {
               type="email"
               value={email}
               onChange={setEmail}
-              placeholder="you@company.com"
+              placeholder="example@email.com"
               disabled={submitting}
               autoComplete="email"
             />
@@ -254,15 +254,6 @@ export function Contact() {
               Icon={FaLinkedin}
             />
           )}
-        </div>
-
-        {/* Footer-bar style bottom */}
-        <div className="mt-20 pt-6 border-t border-rule flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs font-mono uppercase tracking-[0.18em] text-muted">
-          <div>© {new Date().getFullYear()} — {PROFILE.name}</div>
-          <div className="flex items-center gap-2">
-            <span className="live-dot" />
-            <span>Built with React · Tailwind · Framer Motion</span>
-          </div>
         </div>
       </div>
     </section>

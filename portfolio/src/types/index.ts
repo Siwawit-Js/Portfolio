@@ -24,6 +24,7 @@ export type ProjectCategory = 'web' | 'uiux' | 'mobile';
 export interface Project {
   id: string;
   title: string;
+  short_description: string | null;
   description: string | null;
   category: ProjectCategory;
   image_url: string | null;
