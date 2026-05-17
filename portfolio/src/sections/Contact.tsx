@@ -58,8 +58,6 @@ export function Contact() {
         throw new Error(data.error || 'Failed to send message');
       }
       setStatus('success');
-      setName('');
-      setEmail('');
       setMessage('');
     } catch (err) {
       setStatus('error');
