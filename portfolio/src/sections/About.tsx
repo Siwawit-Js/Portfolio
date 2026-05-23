@@ -74,7 +74,7 @@ export function About() {
               transition={{ duration: 0.7 }}
               className="font-display font-bold text-[clamp(2.25rem,5.5vw,4.75rem)] leading-[0.98] tracking-tight text-ink"
             >
-              Web<br />
+              Full-stack<br />
               <span className="text-primary ml-20">Developer</span>.
             </motion.h2>
 
